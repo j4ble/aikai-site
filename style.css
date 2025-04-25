@@ -1,0 +1,215 @@
+/* Basic Resets & Defaults */
+:root {
+    /* Light Mode Colors */
+    --background-color: #f4f4f8;
+    --text-color: #333;
+    --logo-color: #5a4bff; /* Example purple */
+    --button-bg: #5a4bff;
+    --button-text: #fff;
+    --input-border: #ccc;
+    --input-bg: #fff;
+    --toggle-bg-off: #ccc; /* Switch background when off */
+    --toggle-bg-on: #2422caff; /* Switch background when on (light mode) */
+    --toggle-thumb-color: #fff;
+
+    /* Dark Mode Colors */
+    --dark-background-color: #1a1a2e;
+    --dark-text-color: #e0e0e0;
+    --dark-logo-color: #5a4bff; /* Lighter purple for dark mode */
+    --dark-button-bg: #5a4bff;
+    --dark-button-text: #1a1a2e;
+    --dark-input-border: #555;
+    --dark-input-bg: #2a2a4e;
+    --dark-toggle-bg-on: #2422caff; /* Switch background when on (dark mode) */
+}
+
+body {
+    margin: 0;
+    font-family: sans-serif; /* Choose a nicer font later */
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    text-align: center;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: var(--dark-background-color);
+    color: var(--dark-text-color);
+}
+
+body.dark-mode .logo {
+    color: var(--dark-logo-color);
+}
+
+/* Header Styling (for dark mode toggle) */
+header {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 10; /* Ensure it's above other content if needed */
+}
+
+/* iOS Style Toggle Switch Styles */
+.toggle-switch-container {
+    display: inline-block; /* Or block, depending on layout needs */
+}
+
+.toggle-checkbox {
+    display: none; /* Hide the actual checkbox */
+}
+
+.toggle-label {
+    display: block;
+    width: 50px; /* Width of the switch track */
+    height: 28px; /* Height of the switch track */
+    background-color: var(--toggle-bg-off);
+    border-radius: 14px; /* Fully rounded ends */
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* The moving thumb */
+.toggle-label::after {
+    content: '';
+    position: absolute;
+    width: 24px; /* Diameter of the thumb */
+    height: 24px; /* Diameter of the thumb */
+    background-color: var(--toggle-thumb-color);
+    border-radius: 50%; /* Make it circular */
+    top: 2px; /* Position inside the track */
+    left: 2px; /* Starting position (off) */
+    transition: transform 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Optional subtle shadow */
+}
+
+/* Styles when the switch is ON (checkbox is checked) */
+.toggle-checkbox:checked + .toggle-label {
+    background-color: var(--toggle-bg-on); /* Use light mode 'on' color by default */
+}
+
+.toggle-checkbox:checked + .toggle-label::after {
+    transform: translateX(22px); /* Move thumb to the right */
+}
+
+
+body.dark-mode .toggle-checkbox:checked + .toggle-label {
+    background-color: var(--dark-toggle-bg-on); /* Use dark mode 'on' color */
+}
+
+/* If the thumb color should change in dark mode */
+/* body.dark-mode .toggle-label::after {
+    background-color: var(--dark-toggle-thumb-color);
+} */
+
+/* Content Container & Centering */
+main {
+    display: flex; /* Use flexbox for easier centering */
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1; /* Allow main to take up available space */
+    width: 100%;
+    padding: 2rem 1rem; /* Add padding for smaller screens */
+    box-sizing: border-box;
+}
+
+.content-container {
+    max-width: 600px; /* Limit width on larger screens */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Image Styling */
+.preview-image {
+    max-width: 50%; /* Responsive width */
+    height: auto; /* Maintain aspect ratio */
+    margin-bottom: 1rem;
+    /*margin-right: 2rem;*/
+    border-radius: 8px; /* Optional: rounded corners */
+    
+}
+
+/* Logo Container Styling */
+.logo-container {
+    position: relative;
+    height: 50px;
+    /* Keep this centered by the parent flexbox */
+    /* No display: inline-block needed */
+    margin-bottom: 0.5rem;
+    max-width: 100%;
+    /* Explicit width might help if images vary significantly, but usually not needed */
+    /* width: 150px; */ /* Example: Set if necessary */
+    
+}
+
+/* Shared Logo Image Styling */
+.logo-image {
+    display: block;
+    height: 100%;
+    width: auto;
+    position: absolute;
+    top: 0;
+    left: 50%; /* Position the left edge at the center */
+    transform: translateX(-50%); /* Shift the image back by half its own width */
+    /* Remove previous centering attempts */
+    /* margin: 0 auto; */
+    /* right: 0; */
+    transition: opacity 0.3s ease;
+}
+
+/* Specific Logo Opacity States */
+.logo-light {
+    opacity: 1; /* Visible by default (in light mode) */
+}
+
+.logo-dark {
+    opacity: 0; /* Hidden by default (in light mode) */
+}
+
+/* Dark Mode Opacity States */
+body.dark-mode .logo-light {
+    opacity: 0; /* Fade out light logo in dark mode */
+}
+
+body.dark-mode .logo-dark {
+    opacity: 1; /* Fade in dark logo in dark mode */
+}
+
+/* Waitlist Section Styling */
+.waitlist-section {
+    margin-top: 1rem;
+    width: 100%;
+    max-width: 400px; /* Keep this max-width if your embed fits nicely within it, otherwise adjust or remove */
+}
+
+.waitlist-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+/* App Store Badges Placeholder */
+.app-store-badges {
+    margin-top: 2rem;
+    opacity: 0.7; /* Make it less prominent for now */
+}
+
+/* Basic Responsiveness */
+@media (max-width: 600px) {
+    .logo-container {
+        height: 40px; /* Slightly smaller logo on mobile */
+    }
+    .waitlist-section h2 {
+        font-size: 1.3rem;
+    }
+    main {
+        padding: 1rem; /* Adjust padding for mobile */
+    }
+} 
