@@ -1,0 +1,7 @@
+#AIKAI
+
+> AIKAI is an upcoming iOS app that seeks to become a bridge between present and future. 
+
+## Website Information
+
+- This website is a landing page with information for people to follow @aikaiapp on X (https://x.com/aikaiapp) for updates.
