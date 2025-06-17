@@ -109,7 +109,21 @@ document.addEventListener('DOMContentLoaded', () => {
             // Pick random start image
             const startIdx = Math.floor(Math.random() * profile.images.length);
             initialImg.dataset.idx = startIdx;
-            initialImg.src = `images/${profile.images[startIdx]}`;
+            
+            // Start with placeholder image
+            initialImg.src = 'aikai_profile_card.jpg';
+            
+            // Preload the actual image
+            const actualImg = new Image();
+            actualImg.onload = () => {
+                initialImg.src = `images/${profile.images[startIdx]}`;
+            };
+            actualImg.onerror = () => {
+                // Keep placeholder if actual image fails to load
+                console.warn(`Failed to load profile image: ${profile.images[startIdx]}`);
+            };
+            actualImg.src = `images/${profile.images[startIdx]}`;
+            
             card.appendChild(initialImg);
 
             // Track the current visible image element for cross-fading
@@ -139,16 +153,32 @@ document.addEventListener('DOMContentLoaded', () => {
                 newImg.alt = profile.name;
                 newImg.loading = 'lazy';
                 newImg.dataset.idx = nextIdx;
-                newImg.src = nextSrc;
                 newImg.style.opacity = '0'; // Start transparent for fade-in
-
+                
+                // Start with placeholder image
+                newImg.src = 'aikai_profile_card.jpg';
+                
                 card.appendChild(newImg);
 
-                // Force reflow then start cross-fade
-                requestAnimationFrame(() => {
-                    newImg.style.opacity = '1';   // Fade in new
-                    currentImg.style.opacity = '0'; // Fade out old
-                });
+                // Preload the actual image
+                const actualImg = new Image();
+                actualImg.onload = () => {
+                    // Update src and start cross-fade
+                    newImg.src = nextSrc;
+                    requestAnimationFrame(() => {
+                        newImg.style.opacity = '1';   // Fade in new
+                        currentImg.style.opacity = '0'; // Fade out old
+                    });
+                };
+                actualImg.onerror = () => {
+                    // If actual image fails, still show placeholder with cross-fade
+                    console.warn(`Failed to load profile image: ${profile.images[nextIdx]}`);
+                    requestAnimationFrame(() => {
+                        newImg.style.opacity = '1';   // Fade in placeholder
+                        currentImg.style.opacity = '0'; // Fade out old
+                    });
+                };
+                actualImg.src = nextSrc;
 
                 // After transition completes, remove old image & update reference
                 newImg.addEventListener('transitionend', () => {
