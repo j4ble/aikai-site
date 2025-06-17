@@ -85,13 +85,17 @@ document.addEventListener('DOMContentLoaded', () => {
             });
 
             profiles.forEach(profile => {
-                const { card, start, stop } = createCard(profile);
+                const { card, start, stop, cleanup } = createCard(profile);
                 // Attach control methods for observer
                 card.__startTimer = start;
                 card.__stopTimer = stop;
+                card.__cleanup = cleanup;
                 sliderContainer.appendChild(card);
                 observer.observe(card);
             });
+
+            // Store observer reference for cleanup
+            sliderContainer.__observer = observer;
 
             // Enable mouse drag scrolling (in addition to native touch)
             addDragScrolling(sliderContainer);
@@ -115,13 +119,17 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Preload the actual image
             const actualImg = new Image();
-            actualImg.onload = () => {
-                initialImg.src = `images/${profile.images[startIdx]}`;
+            const onLoadHandler = () => {
+                if (initialImg.parentElement) { // Only update if still in DOM
+                    initialImg.src = `images/${profile.images[startIdx]}`;
+                }
             };
-            actualImg.onerror = () => {
+            const onErrorHandler = () => {
                 // Keep placeholder if actual image fails to load
                 console.warn(`Failed to load profile image: ${profile.images[startIdx]}`);
             };
+            actualImg.onload = onLoadHandler;
+            actualImg.onerror = onErrorHandler;
             actualImg.src = `images/${profile.images[startIdx]}`;
             
             card.appendChild(initialImg);
@@ -136,7 +144,8 @@ document.addEventListener('DOMContentLoaded', () => {
             card.appendChild(info);
 
             // Manual cycle on click/tap
-            card.addEventListener('click', () => changeImage());
+            const clickHandler = () => changeImage();
+            card.addEventListener('click', clickHandler);
 
             let timerId = null;
             const firstDelay = 1000 + Math.floor((Math.random() * 3) + 1) * 1000; // 1-4s
@@ -162,22 +171,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Preload the actual image
                 const actualImg = new Image();
-                actualImg.onload = () => {
-                    // Update src and start cross-fade
-                    newImg.src = nextSrc;
-                    requestAnimationFrame(() => {
-                        newImg.style.opacity = '1';   // Fade in new
-                        currentImg.style.opacity = '0'; // Fade out old
-                    });
+                const onLoadHandler = () => {
+                    if (newImg.parentElement) { // Only update if still in DOM
+                        // Update src and start cross-fade
+                        newImg.src = nextSrc;
+                        requestAnimationFrame(() => {
+                            newImg.style.opacity = '1';   // Fade in new
+                            currentImg.style.opacity = '0'; // Fade out old
+                        });
+                    }
                 };
-                actualImg.onerror = () => {
-                    // If actual image fails, still show placeholder with cross-fade
-                    console.warn(`Failed to load profile image: ${profile.images[nextIdx]}`);
-                    requestAnimationFrame(() => {
-                        newImg.style.opacity = '1';   // Fade in placeholder
-                        currentImg.style.opacity = '0'; // Fade out old
-                    });
+                const onErrorHandler = () => {
+                    if (newImg.parentElement) { // Only update if still in DOM
+                        // If actual image fails, still show placeholder with cross-fade
+                        console.warn(`Failed to load profile image: ${profile.images[nextIdx]}`);
+                        requestAnimationFrame(() => {
+                            newImg.style.opacity = '1';   // Fade in placeholder
+                            currentImg.style.opacity = '0'; // Fade out old
+                        });
+                    }
                 };
+                actualImg.onload = onLoadHandler;
+                actualImg.onerror = onErrorHandler;
                 actualImg.src = nextSrc;
 
                 // After transition completes, remove old image & update reference
@@ -206,7 +221,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 timerId = null;
             }
 
-            return { card, start, stop };
+            function cleanup() {
+                stop(); // Clear any running timers
+                card.removeEventListener('click', clickHandler);
+                // Clean up image preloading handlers
+                actualImg.onload = null;
+                actualImg.onerror = null;
+            }
+
+            return { card, start, stop, cleanup };
         }
 
         function handleIntersect(entries) {
@@ -356,12 +379,38 @@ document.addEventListener('DOMContentLoaded', () => {
             container.addEventListener('dragstart',   e => e.preventDefault());
             container.addEventListener('selectstart', e => e.preventDefault());
 
-            /* ---------- clean up on unload -------------------------------------- */
-            window.addEventListener('beforeunload', () => {
+            /* ---------- cleanup function for external use ---------------------- */
+            container.__cleanupScrolling = () => {
                 cancelAnimationFrame(autoScrollAnimationId);
                 if (momentumFrameId) cancelAnimationFrame(momentumFrameId);
-            });
+                autoScrollAnimationId = null;
+                momentumFrameId = null;
+            };
+
+            /* ---------- clean up on unload -------------------------------------- */
+            window.addEventListener('beforeunload', container.__cleanupScrolling);
         }
+
+        // Global cleanup function for the entire slider
+        window.__cleanupSlider = () => {
+            if (sliderContainer) {
+                // Stop all timers and clean up cards
+                Array.from(sliderContainer.children).forEach(card => {
+                    if (card.__stopTimer) card.__stopTimer();
+                    if (card.__cleanup) card.__cleanup();
+                });
+                
+                // Disconnect observer
+                if (sliderContainer.__observer) {
+                    sliderContainer.__observer.disconnect();
+                }
+                
+                // Clean up scrolling
+                if (sliderContainer.__cleanupScrolling) {
+                    sliderContainer.__cleanupScrolling();
+                }
+            }
+        };
     }
 
 }); 
