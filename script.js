@@ -112,11 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
             initialImg.src = `images/${profile.images[startIdx]}`;
             card.appendChild(initialImg);
 
-            initialImg.addEventListener('error', () => {
-                console.warn(`Failed to load image: ${initialImg.src}`);
-                // Could set a fallback image or hide the card
-            });
-
             // Track the current visible image element for cross-fading
             let currentImg = initialImg;
 
@@ -142,6 +137,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const newImg = document.createElement('img');
                 newImg.className = 'profile-image';
                 newImg.alt = profile.name;
+                newImg.loading = 'lazy';
                 newImg.dataset.idx = nextIdx;
                 newImg.src = nextSrc;
                 newImg.style.opacity = '0'; // Start transparent for fade-in
@@ -161,19 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                     currentImg = newImg;
                 }, { once: true });
-
-                // Add timeout fallback in case transitionend doesn't fire
-                setTimeout(() => {
-                    if (currentImg && currentImg !== newImg && currentImg.parentElement) {
-                        currentImg.remove();
-                        currentImg = newImg;
-                    }
-                }, 600); // Slightly longer than CSS transition (0.5s)
-
-                newImg.addEventListener('error', () => {
-                    console.warn(`Failed to load image: ${newImg.src}`);
-                    // Revert to previous image or skip to next
-                });
             }
 
             function scheduleNext(delay) {
