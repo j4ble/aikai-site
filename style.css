@@ -1,5 +1,7 @@
 /* Basic Resets & Defaults */
 :root {
+    font-size: 15px;
+
     /* Light Mode Colors */
     --background-color: #f4f4f8;
     --text-color: #333;
@@ -8,9 +10,7 @@
     --button-text: #fff;
     --input-border: #ccc;
     --input-bg: #fff;
-    --toggle-bg-off: #ccc; /* Switch background when off */
-    --toggle-bg-on: #2422caff; /* Switch background when on (light mode) */
-    --toggle-thumb-color: #fff;
+    
 
     /* Dark Mode Colors */
     --dark-background-color: #1a1a2e;
@@ -20,12 +20,12 @@
     --dark-button-text: #1a1a2e;
     --dark-input-border: #555;
     --dark-input-bg: #2a2a4e;
-    --dark-toggle-bg-on: #2422caff; /* Switch background when on (dark mode) */
 }
 
 body {
     margin: 0;
-    font-family: sans-serif; /* Choose a nicer font later */
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
@@ -35,6 +35,7 @@ body {
     align-items: center; /* Center content horizontally */
     justify-content: center; /* Center content vertically */
     text-align: center;
+    padding-top: 4.5rem; /* Add padding to account for fixed navbar */
 }
 
 /* Dark Mode Styles */
@@ -47,80 +48,51 @@ body.dark-mode .logo {
     color: var(--dark-logo-color);
 }
 
-/* Header Styling (for dark mode toggle) */
+/* Header & Navigation Styling */
 header {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    z-index: 10; /* Ensure it's above other content if needed */
-}
-
-/* iOS Style Toggle Switch Styles */
-.toggle-switch-container {
-    display: inline-block; /* Or block, depending on layout needs */
-}
-
-.toggle-checkbox {
-    display: none; /* Hide the actual checkbox */
-}
-
-.toggle-label {
-    display: block;
-    width: 50px; /* Width of the switch track */
-    height: 28px; /* Height of the switch track */
-    background-color: var(--toggle-bg-off);
-    border-radius: 14px; /* Fully rounded ends */
-    position: relative;
-    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    background-color: rgba(244, 244, 248, 0.7); /* Semi-transparent light background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    /*border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
     transition: background-color 0.3s ease;
 }
 
-/* The moving thumb */
-.toggle-label::after {
-    content: '';
-    position: absolute;
-    width: 24px; /* Diameter of the thumb */
-    height: 24px; /* Diameter of the thumb */
-    background-color: var(--toggle-thumb-color);
-    border-radius: 50%; /* Make it circular */
-    top: 2px; /* Position inside the track */
-    left: 2px; /* Starting position (off) */
-    transition: transform 0.3s ease;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2); /* Optional subtle shadow */
+body.dark-mode header {
+    background-color: rgba(26, 26, 46, 0.7); /* Semi-transparent dark background */
+    /*border-bottom: 1px solid rgba(255, 255, 255, 0.1);*/
 }
 
-/* Styles when the switch is ON (checkbox is checked) */
-.toggle-checkbox:checked + .toggle-label {
-    background-color: var(--toggle-bg-on); /* Use light mode 'on' color by default */
-}
-
-.toggle-checkbox:checked + .toggle-label::after {
-    transform: translateX(22px); /* Move thumb to the right */
+.navbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 
-body.dark-mode .toggle-checkbox:checked + .toggle-label {
-    background-color: var(--dark-toggle-bg-on); /* Use dark mode 'on' color */
-}
 
-/* If the thumb color should change in dark mode */
-/* body.dark-mode .toggle-label::after {
-    background-color: var(--dark-toggle-thumb-color);
-} */
+
 
 /* Content Container & Centering */
 main {
-    display: flex; /* Use flexbox for easier centering */
+    display: block; /* Use flexbox for easier centering */
     justify-content: center;
     align-items: center;
     flex-grow: 1; /* Allow main to take up available space */
     width: 100%;
-    padding: 2rem 1rem; /* Add padding for smaller screens */
+    padding: 0rem 1rem; /* Add padding for smaller screens */
     box-sizing: border-box;
 }
 
-.content-container {
-    max-width: 600px; /* Limit width on larger screens */
+.content-container { /* Increased to accommodate two cards side-by-side */
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -140,14 +112,10 @@ main {
 /* Logo Container Styling */
 .logo-container {
     position: relative;
-    height: 50px;
-    /* Keep this centered by the parent flexbox */
-    /* No display: inline-block needed */
-    margin-bottom: 0.5rem;
+    height: 2.5rem; 
+    margin-bottom: 0; /* Remove bottom margin in navbar */
     max-width: 100%;
-    /* Explicit width might help if images vary significantly, but usually not needed */
-    /* width: 150px; */ /* Example: Set if necessary */
-    
+    width: 145.27px; /* Adjust as needed to match logo width */
 }
 
 /* Shared Logo Image Styling */
@@ -157,11 +125,8 @@ main {
     width: auto;
     position: absolute;
     top: 0;
-    left: 50%; /* Position the left edge at the center */
-    transform: translateX(-50%); /* Shift the image back by half its own width */
-    /* Remove previous centering attempts */
-    /* margin: 0 auto; */
-    /* right: 0; */
+    left: 0; /* Align to left in navbar */
+    transform: none; /* Remove centering transform */
     transition: opacity 0.3s ease;
 }
 
@@ -202,14 +167,429 @@ body.dark-mode .logo-dark {
 }
 
 /* Basic Responsiveness */
-@media (max-width: 600px) {
-    .logo-container {
-        height: 40px; /* Slightly smaller logo on mobile */
+@media (max-width: 768px) {
+    .navbar {
+        padding-top: 1rem;
+        padding-bottom: 1rem;
     }
+    
+    .logo-container {
+        width: 116px;
+        height: 2rem;
+    }
+    
+    body {
+        padding-top: 4rem; /* Adjust for smaller navbar on mobile */
+    }
+}
+
+@media (max-width: 600px) {
     .waitlist-section h2 {
         font-size: 1.3rem;
     }
-    main {
-        padding: 1rem; /* Adjust padding for mobile */
+    
+}
+
+/* Profile Slider */
+.profile-slider {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    padding: 0 0 1rem 0;
+    scroll-snap-type: none;
+    width: 100vw;
+    margin-bottom: 0.5rem;
+    cursor: grab;
+    touch-action: pan-x;
+    user-select: none; /* prevent text selection while dragging */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.profile-slider.grabbing {
+    cursor: grabbing;
+}
+
+/* Hide scrollbar for WebKit browsers */
+.profile-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.profile-card {
+    position: relative;
+    flex: 0 0 280px; /* Card width */
+    height: 400px; /* Card height maintains 5:7ish ratio */
+    border-radius: 20px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background: #000; /* Placeholder while image loads */
+}
+
+/* Ensure existing image & info styles apply to new card */
+.profile-card .profile-image {
+    position: absolute; /* Stack images for cross-fade */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none; /* Prevent text selection */
+    -webkit-user-drag: none; /* Prevent WebKit image dragging */
+    -khtml-user-drag: none; /* Prevent KHTML image dragging */
+    -moz-user-drag: none; /* Prevent Mozilla image dragging */
+    -o-user-drag: none; /* Prevent Opera image dragging */
+    transition: opacity 0.5s ease-in-out; /* Smooth cross-fade */
+    z-index: 1; /* Ensure image sits below overlay */
+}
+
+.profile-card .profile-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    box-sizing: border-box;
+    z-index: 2; /* Keep info overlay above images */
+}
+
+/* Remove old slide overlay styles (optional but harmless if kept) */
+.profile-slider .slide, .profile-slider .slide.active { display: none; }
+
+.profile-name {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.profile-details {
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+/* Dark Mode adjustments for slider overlay */
+body.dark-mode .profile-info {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    color: #fff;
+}
+
+/* Info Card */
+.info-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1rem 1.5rem 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.5rem; /* Space below card */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.info-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.info-photo {
+    width: 80px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.info-author {
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+}
+
+.info-name {
+    font-weight: 500;
+    font-size: 1rem;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.info-handle {
+    font-size: 0.9rem;
+    color: #555;
+    text-decoration: none;
+    margin-top: 2px;
+    transition: color 0.3s ease;
+}
+
+.info-name:hover, .info-handle:hover {
+    text-decoration: underline;
+}
+
+.info-text {
+    margin: 0;
+    font-weight: 320;
+    text-align: justify;
+    line-height: 1.4;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+/* Follow button container */
+.info-follow {
+    text-align: center;
+}
+
+.info-follow .twitter-follow-button {
+    transform: scale(1.1);
+    transform-origin: center;
+}
+
+/* Keep card white in dark mode for contrast */
+body.dark-mode .info-card {
+    background: #29294e;
+    color: #fff;
+}
+
+body.dark-mode .info-name{
+    color: #fff;
+}
+
+body.dark-mode .info-handle {
+    color: #dadada;
+}
+
+/* Cross-fade Aria photo for dark mode */
+.info-photo-wrapper {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+}
+
+.info-photo-wrapper .info-photo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s ease;
+}
+
+.info-photo-light {
+    opacity: 1;
+}
+
+.info-photo-dark {
+    opacity: 0;
+}
+
+body.dark-mode .info-photo-light {
+    opacity: 0;
+}
+
+body.dark-mode .info-photo-dark {
+    opacity: 1;
+}
+
+@media (max-width: 600px) {
+    .info-card {
+        align-items: stretch;
     }
+    .info-header {
+        align-items: center;
+    }
+    .info-photo {
+        margin-bottom: 0.25rem;
+    }
+    
+}
+
+/* Waitlist Card */
+.waitlist-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-sizing: border-box;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    margin-bottom: 1.5rem;
+    position: relative; /* Needed for gradient border */
+    /* overflow property removed so border can glow outside */
+    transition: background-color 0.3s ease;
+}
+
+/* Animated gradient border */
+@property --border-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.waitlist-card::before,
+.waitlist-card::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border-radius: calc(16px + 2px); /* Keep corners rounded even outside */
+    /* Use a conic-gradient for seamless rotation */
+    background: conic-gradient(from var(--border-angle, 0deg), #c60000 0deg, #2422ca 25%, #c60000 50%, #2422ca 75%, #c60000 100%);
+    z-index: -1;            /* Keep behind the card content */
+    animation: waitlistBorderAnim 12s linear infinite;
+}
+
+/* Blur layer for soft glow */
+.waitlist-card::after {
+    filter: blur(4px); /* Slightly softer glow */
+}
+
+@keyframes waitlistBorderAnim {
+    from {
+        --border-angle: 0deg;
+    }
+    to {
+        --border-angle: 360deg;
+    }
+}
+
+.waitlist-title {
+    margin-top: 0;
+    color: #333;
+    margin-bottom: 1rem;
+    font-size: 2.5em;
+    font-weight: 600;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.waitlist-form {
+    display: flex; /* Restore flex layout */
+    flex-direction: column;
+    gap: 0.75rem; /* Restore gap between elements */
+    width: 100%;
+    align-items: center; /* Center children horizontally */
+}
+
+.waitlist-input, .waitlist-button {
+    width: 250px; /* Fixed width, independent of parent width */
+}
+
+.waitlist-input {
+    padding: 0.75rem 1rem; /* Restore padding */
+    font-size: 1rem; /* Restore font size */
+    border: 2px solid #ccc; /* Restore border */
+    border-radius: 9999px; /* Restore rounded shape */
+    outline: none; /* Restore outline setting */
+    box-sizing: border-box; /* Restore box sizing */
+    flex: 0 0 auto; /* Prevent input from stretching */
+}
+
+.waitlist-input:focus {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.35);
+}
+
+.waitlist-button {
+    background: linear-gradient(to left, #2422caff, #c60000ff);
+    color: #fff;
+    height: 40px;
+    border: none;
+    border-radius: 9999px;
+    padding: 0 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s ease;
+    white-space: nowrap;
+}
+
+.waitlist-button:hover {
+    background: linear-gradient(to right, #2422caff, #c60000ff);
+}
+
+.waitlist-button:active {
+    background: linear-gradient(to left, #2422caff, #c60000ff);
+}
+
+
+/* Dark mode for waitlist card */
+body.dark-mode .waitlist-card {
+    background: rgba(255, 255, 255, 0.0);
+}
+
+body.dark-mode .waitlist-title {
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .waitlist-form {
+        flex-direction: column;
+    }
+    .waitlist-button {
+        padding: 0.75rem 1rem; /* Keep padding adjustment for small screens */
+    }
+}
+
+/* Row holding info & waitlist cards */
+.cards-row {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 870px;
+    margin-bottom: 1.5rem;
+}
+
+.cards-row > .info-card {
+    flex: 1 1 0;
+    min-width: 280px;
+}
+
+.waitlist-card {
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+@media (max-width: 900px) {
+    /* if screen too small, stacking already handled by wrap but ensure full width */
+    .cards-row {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+    .waitlist-card {
+        width: 100%;
+        aspect-ratio: auto;
+    }
+}
+@media (min-height: 900px) {
+    :root {
+        font-size: 16px;
+    }
+
+    .profile-card {
+        flex: 0 0 330px; /* Card width */
+        height: 500px; /* Card height maintains 5:7ish ratio */
+  }
+
+  .cards-row {
+    width: 1022px;
+  }
+
+  @media (min-height: 900px) and (max-width: 1022px) {
+    .cards-row {
+        width: 100%;
+    }
+  }
+  
 } 

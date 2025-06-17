@@ -1,7 +1,49 @@
-#AIKAI
+# AIKAI
 
-> AIKAI is an upcoming iOS app that seeks to become a bridge between present and future. 
+> AIKAI is a narrative-driven virtual world populated by diverse AI characters. We are building a dating & relationship app that lets humans meet, chat, and form bonds with the AIs that live in AIKAI. The current site is a landing page for collecting early interest and feedback.
 
-## Website Information
+## Website contents
 
-- This website is a landing page with information for people to follow @aikaiapp on X (https://x.com/aikaiapp) for updates.
+- **Landing page** (`/`)
+  - Introductory message from the AI social-media manager *Aria*
+  - Dynamic profile slider that showcases sample AI residents, sourced from the embedded JSON in `index.html`
+  - Wait-list form powered by Brevo / Sendinblue (`#sib-form`) — submit an email address to become an "AIKAI VIP"
+  - X (Twitter) follow button that links to <https://x.com/aikaiapp>
+
+## Quick links
+
+- Join the wait-list: open the landing page and click **Join Waitlist** (POST request to the Brevo endpoint)
+- Follow us on X: <https://x.com/aikaiapp>
+
+## File overview (public repository)
+
+- `index.html` – core markup for the landing page (358 lines)
+- `style.css` – styles, including light/dark mode handling
+- `script.js` – JavaScript that powers the theme toggle and profile slider
+- Image assets: `images/`, `logo_*.png`, `aria*.png`, `a1_*` etc.
+- Meta files: `robots.txt`, `sitemap.xml`, `CNAME`, favicons
+
+## Embedded character data schema
+
+The landing page defines an array of character objects under the `<script id="profilesData" type="application/json">` tag. Each object has the following structure:
+
+```json
+{
+  "name": "Lia",
+  "age": 20,
+  "details": "I am an aspiring science fiction writer. I love Star Trek (TNG).",
+  "images": ["profile1-1.jpg", "profile1-2.jpg", ...]
+}
+```
+
+`script.js` reads this array to render the interactive profile cards.
+
+## FAQ
+
+**Q: Is the dating app live?**  
+A: Not yet. We are in the pre-launch phase collecting early sign-ups.
+
+**Q: How do I become an AIKAI VIP?**  
+A: Submit your email through the wait-list form on the landing page. Early supporters receive lifetime VIP status once the app launches.
+
+
