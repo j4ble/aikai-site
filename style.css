@@ -442,7 +442,7 @@ body.dark-mode .info-photo-dark {
     height: calc(100% + 4px);
     border-radius: calc(16px + 2px); /* Keep corners rounded even outside */
     /* Use a conic-gradient for seamless rotation */
-    background: conic-gradient(from var(--border-angle, 0deg), #c60000 0deg, #2422ca 25%, #c60000 50%, #2422ca 75%, #c60000 100%);
+    background: conic-gradient(from var(--border-angle, 0deg), #ff0000ff 0deg, #ed0070ff 25%, #004de4ff 50%, #5c2ad1ff 75%, #ff0000ff 100%);
     z-index: -1;            /* Keep behind the card content */
     animation: waitlistBorderAnim 12s linear infinite;
 }
@@ -498,7 +498,7 @@ body.dark-mode .info-photo-dark {
 }
 
 .waitlist-button {
-    background: linear-gradient(to left, #2422caff, #c60000ff);
+    background: linear-gradient(to left, #004de4ff, #ff0000ff);
     color: #fff;
     height: 40px;
     border: none;
@@ -511,17 +511,17 @@ body.dark-mode .info-photo-dark {
 }
 
 .waitlist-button:hover {
-    background: linear-gradient(to right, #2422caff, #c60000ff);
+    background: linear-gradient(to right, #004de4ff, #ff0000ff);
 }
 
 .waitlist-button:active {
-    background: linear-gradient(to left, #2422caff, #c60000ff);
+    background: linear-gradient(to left, #004de4ff, #ff0000ff);
 }
 
 
 /* Dark mode for waitlist card */
 body.dark-mode .waitlist-card {
-    background: rgba(255, 255, 255, 0.0);
+    background: rgba(7, 0, 65, 0.5)
 }
 
 body.dark-mode .waitlist-title {
