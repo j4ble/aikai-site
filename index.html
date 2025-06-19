@@ -87,7 +87,7 @@
     }
 
     .sib-form-block__button-with-loader{
-      background: linear-gradient(to left, #004de4ff, #ff0000ff);
+        background: linear-gradient(to left, #004de4ff, #ff0000ff);
         padding: 8px 32px !important;
         display: flex !important;
         align-items: center !important;
@@ -106,15 +106,181 @@
     }
 
     .entry__field{
-        border-radius: 10px !important; 
+        border-radius: 16px !important; 
         color: #333 !important;
+        position: relative !important;
+        padding: 2px !important;
+        transition: all 0.3s ease !important;
+        background: linear-gradient(to right, #ff0000, #004de4) !important;
+    }
+
+    .sib-form .entry__field{
+        background: linear-gradient(to right, #ff0000, #004de4) !important;
+    }
+ 
+
+
+    .entry__field input {
+        padding-right: 50px !important;
+        background: white !important;
+        border: none !important;
+        border-radius: 14px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+        color: #333 !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .entry__field input::placeholder {
+        color: #cacaca !important;
+        transition: all 0.3s ease !important;
+    }
+
+    /* Dark mode support for input */
+    body.dark-mode .entry__field {
+        padding: 1px !important;
+        border: 1px solid #ffffff !important;
+        background: transparent !important;
+    }
+
+    body.dark-mode .entry__field input {
+        background: transparent !important;
+        color: white !important;
+        border-radius: 15px !important;
+    }
+
+    body.dark-mode .entry__field input::placeholder {
+        color: #cacaca !important;
+    }
+
+    .submit-button-inline {
+        position: absolute !important;
+        right: 3px !important;
+        top: 50% !important;
+        transform: translateY(-50%) !important;
+        background: rgba(255, 255, 255, 0) !important;
+        border: 1px solid rgba(255, 255, 255, 0) !important;
+        border-radius: 50% !important;
+        cursor: pointer !important;
+        padding: 0 !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 32px !important;
+        height: 32px !important;
+        z-index: 10 !important;
+        outline: none !important;
+        transition: all 0.3s ease !important;
+    }
+
+    .submit-button-inline:hover {
+        opacity: 0.8 !important;
+    }
+
+    .submit-button-inline img {
+        width: 26px !important;
+        height: 26px !important;
+        display: block !important;
+        flex-shrink: 0 !important;
+    }
+
+    .submit-button-inline img {
+        display: block !important;
+        position: absolute !important;
+        top: 3px !important;
+        left: 3px !important;
+        right: 3px !important;
+        bottom: 3px !important;
+        margin: auto !important;
+        transition: opacity 0.3s ease, visibility 0.3s ease !important;
+    }
+
+    /* Base state: all icons hidden */
+    .submit-icon-light,
+    .submit-icon-dark,
+    .submit-busy-icon-light,
+    .submit-busy-icon-dark {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    /* Light mode: show light submit icon only */
+    .submit-icon-light {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Dark mode: show dark submit icon only */
+    body.dark-mode .submit-icon-light {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    body.dark-mode .submit-icon-dark {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Loading state in light mode: hide light submit, show light busy */
+    .submit-button-inline.loading .submit-icon-light {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    .submit-button-inline.loading .submit-busy-icon-light {
+        opacity: 1 !important;
+        visibility: visible !important;
+        animation: spin 2s linear infinite !important;
+    }
+
+    /* Loading state in dark mode: hide dark submit, show dark busy */
+    body.dark-mode .submit-button-inline.loading .submit-icon-dark {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    body.dark-mode .submit-button-inline.loading .submit-busy-icon-dark {
+        opacity: 1 !important;
+        visibility: visible !important;
+        animation: spin 2s linear infinite !important;
+    }
+
+    @keyframes spin {
+        from { 
+            transform: rotate(0deg); 
+        }
+        to { 
+            transform: rotate(360deg); 
+        }
+    }
+
+    /* Show the original button but make it invisible - this preserves Brevo functionality */
+    .sib-form-block__button-with-loader {
+        position: absolute !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+        z-index: -1 !important;
     }
 
     .sib-form-message-panel{
         background: white !important;
         color: #333 !important;
         border-color: #333 !important;
-        border-radius: 10px !important;
+        border-radius: 16px !important;
+    }
+
+    .join-waitlist-text {
+        font-size: 1em !important;
+        text-align: center !important;
+        color: #333 !important;
+        font-weight: 300 !important;
+        font-family: "Roboto", sans-serif !important;
+        transition: color 0.3s ease !important;
+    }
+
+    /* Dark mode support for join waitlist text */
+    body.dark-mode .join-waitlist-text {
+        color: #e0e0e0 !important;
     }
     </style>
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
@@ -192,6 +358,7 @@
                         <div></div>
                         <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:3px; border-width:1px; border-color:transparent; border-style:solid; direction:ltr">
                         <form id="sib-form" method="POST" action="https://d72fd579.sibforms.com/serve/MUIFAChVt-WnCZL61-Xi_qqfHcDaOh7pgqUxcVY_ze2jIo9NF9Ivg6tHcXwXb1oJNQkphO4eeAyeESyfClFZ1Q4ka8YxL0zmNSG4Obg0l1jgOR0Rhnvn1UCZ5PM4LyYtK2rQQzbmR5PS7GLppT0QvbxCswOC7q9ewZ-eJQ-YVkZzmXED8PPTFy0ZWzPiR0YYHKA1HlP5UrZWiE6Q" data-type="subscription">
+                            <div class="join-waitlist-text">Join Waitlist</div>
                             <div style="padding: 8px 0;">
                             <div class="sib-input sib-form-block">
                                 <div class="form__entry entry_block">
@@ -199,6 +366,14 @@
 
                                     <div class="entry__field">
                                     <input class="input " type="text" id="EMAIL" name="EMAIL" autocomplete="off" placeholder="Enter your email" data-required="true" required />
+                                    <button type="button" class="submit-button-inline" id="submitButtonInline">
+                                        <!-- Light Mode Icons -->
+                                        <img src="submit.png" alt="Submit" class="submit-icon submit-icon-light" />
+                                        <img src="submit_busy.png" alt="Loading" class="submit-busy-icon submit-busy-icon-light" />
+                                        <!-- Dark Mode Icons -->
+                                        <img src="submit_dark.png" alt="Submit" class="submit-icon submit-icon-dark" />
+                                        <img src="submit_busy_dark.png" alt="Loading" class="submit-busy-icon submit-busy-icon-dark" />
+                                    </button>
                                     </div>
                                 </div>
 

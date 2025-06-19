@@ -413,4 +413,92 @@ document.addEventListener('DOMContentLoaded', () => {
         };
     }
 
+    // Handle inline submit button functionality
+    const form = document.getElementById('sib-form');
+    const inlineButton = document.getElementById('submitButtonInline');
+    const originalButton = document.querySelector('.sib-form-block__button-with-loader');
+    
+    if (form && inlineButton && originalButton) {
+        // Handle inline button click
+        inlineButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            // Get email input and validate
+            const emailInput = document.getElementById('EMAIL');
+            if (!emailInput || !emailInput.value.trim()) {
+                // Show error for empty email
+                const errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.style.display = 'block';
+                }
+                return;
+            }
+            
+            // Basic email validation
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value.trim())) {
+                // Show error for invalid email
+                const errorMessage = document.getElementById('error-message');
+                if (errorMessage) {
+                    errorMessage.style.display = 'block';
+                }
+                return;
+            }
+            
+            // Hide error message
+            const errorMessage = document.getElementById('error-message');
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+            
+            // Add loading state
+            inlineButton.classList.add('loading');
+            
+            // Trigger the original Brevo button click to use their submission logic
+            originalButton.click();
+        });
+        
+        // Monitor form submission states
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.type === 'attributes' || mutation.type === 'childList') {
+                    // Check if success message is shown
+                    const successMessage = document.getElementById('success-message');
+                    const errorMessage = document.getElementById('error-message');
+                    
+                    if (successMessage && successMessage.style.display !== 'none' && 
+                        successMessage.offsetHeight > 0) {
+                        // Success - remove loading state
+                        inlineButton.classList.remove('loading');
+                    } else if (errorMessage && errorMessage.style.display !== 'none' && 
+                              errorMessage.offsetHeight > 0) {
+                        // Error - remove loading state
+                        inlineButton.classList.remove('loading');
+                    }
+                }
+            });
+        });
+        
+        // Observe the form container for changes
+        const formContainer = document.getElementById('sib-form-container');
+        if (formContainer) {
+            observer.observe(formContainer, {
+                childList: true,
+                subtree: true,
+                attributes: true,
+                attributeFilter: ['style']
+            });
+        }
+        
+        // Also handle form submission via Enter key
+        const emailInput = document.getElementById('EMAIL');
+        if (emailInput) {
+            emailInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    inlineButton.click();
+                }
+            });
+        }
+    }
 }); 
