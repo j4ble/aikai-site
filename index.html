@@ -293,6 +293,84 @@
     .sib-form-message-panel__text .sib-notification__icon{
       margin-right: calc(0.5rem - 1px) !important;
     }
+
+    /* Bottom Join Waitlist Bar - Permanent Dark Mode */
+    .bottom-join-bar {
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 100 !important;
+        background: linear-gradient(135deg, rgba(26, 26, 46, 0.7), rgba(26, 26, 46, 0.9)) !important; 
+        backdrop-filter: blur(10px) !important;
+        -webkit-backdrop-filter: blur(10px) !important;
+        padding: 1rem !important;
+        transform: translateY(100%) !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+        transition: all 0.3s ease !important;
+        cursor: pointer !important;
+    }
+
+    .bottom-join-bar.visible {
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    .bottom-join-content {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 12px !important;
+        max-width: 100% !important;
+        margin: 0 auto !important;
+    }
+
+    .bottom-join-text {
+        font-family: "Roboto", sans-serif !important;
+        font-size: 1.1em !important;
+        font-weight: 500 !important;
+        color: #ffffff !important;
+        transition: color 0.3s ease !important;
+    }
+
+    .bottom-join-arrow {
+        width: 24px !important;
+        height: 24px !important;
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .bottom-join-arrow img {
+        width: 24px !important;
+        height: 24px !important;
+        position: absolute !important;
+        transition: opacity 0.3s ease !important;
+        transform: rotate(90deg) !important;
+    }
+
+    .bottom-arrow-light {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    .bottom-arrow-dark {
+        opacity: 1 !important;
+        visibility: visible !important;
+    }
+
+    /* Hover effect for bottom bar */
+    .bottom-join-bar:hover .bottom-join-text {
+        color: #cbcbcb !important;
+    }
+
+    .bottom-join-bar:hover .bottom-arrow-dark {
+        transition: filter 0.3s ease !important;
+        filter: brightness(0.8) !important;
+    }
     </style>
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 </head>
@@ -421,6 +499,19 @@
             <!-- End Cards Row -->
         </div>
     </main>
+
+    <!-- Bottom Join Waitlist Bar -->
+    <div id="bottomJoinBar" class="bottom-join-bar">
+        <div class="bottom-join-content">
+            <span class="bottom-join-text">Join Waitlist</span>
+            <div class="bottom-join-arrow">
+                <!-- Light Mode Arrow -->
+                <img src="submit.png" alt="Join" class="bottom-arrow-light" />
+                <!-- Dark Mode Arrow -->
+                <img src="submit_dark.png" alt="Join" class="bottom-arrow-dark" />
+            </div>
+        </div>
+    </div>
 
     <!-- Embedded profile data -->
     <script id="profilesData" type="application/json">

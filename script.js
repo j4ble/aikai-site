@@ -501,4 +501,37 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // Bottom Join Waitlist Bar functionality
+    const bottomJoinBar = document.getElementById('bottomJoinBar');
+    const waitlistCard = document.querySelector('.waitlist-card');
+    
+    if (bottomJoinBar && waitlistCard) {
+        // Create intersection observer to detect when waitlist card is visible
+        const waitlistObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Waitlist card is visible, hide bottom bar
+                    bottomJoinBar.classList.remove('visible');
+                } else {
+                    // Waitlist card is not visible, show bottom bar
+                    bottomJoinBar.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.1, // Trigger when 10% of the waitlist card is visible
+            rootMargin: '-50px 0px' // Add some margin to avoid flickering
+        });
+
+        // Start observing the waitlist card
+        waitlistObserver.observe(waitlistCard);
+
+        // Handle click on bottom bar to scroll to waitlist card
+        bottomJoinBar.addEventListener('click', () => {
+            waitlistCard.scrollIntoView({
+                behavior: 'smooth',
+                block: 'center'
+            });
+        });
+    }
 }); 
