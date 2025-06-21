@@ -401,11 +401,10 @@
         transition: opacity 0.3s ease;
     }
 
-    /* Light mode: show sun icon */
+    
     .toggle-icon-light {
         opacity: 0.75;
         visibility: visible;
-        /* filter: drop-shadow(0px 1px 3px rgba(255, 246, 151, 0.913)) */
     }
 
     .toggle-icon-dark {
@@ -413,7 +412,6 @@
         visibility: hidden;
     }
 
-    /* Dark mode: show moon icon */
     body.dark-mode .toggle-icon-light {
         opacity: 0;
         visibility: hidden;
@@ -438,8 +436,8 @@
             
             <!-- Dark Mode Toggle Button -->
             <button id="darkModeToggleButton" class="dark-mode-toggle" aria-label="Toggle dark mode">
-                <img src="sun_icon.png" alt="Light mode" class="toggle-icon toggle-icon-light">
-                <img src="moon_icon.png" alt="Dark mode" class="toggle-icon toggle-icon-dark">
+                <img src="moon_dark_icon.png"  alt="Light mode" class="toggle-icon toggle-icon-light">
+                <img src="sun_light_icon.png"  alt="Dark mode" class="toggle-icon toggle-icon-dark">
             </button>
             <!-- End Dark Mode Toggle Button -->
            
