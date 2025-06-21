@@ -73,8 +73,43 @@ body.dark-mode header {
     align-items: center;
     padding-top: 1rem;
     padding-bottom: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     max-width: 100%;
     margin: 0 auto;
+    position: relative;
+}
+
+.navbar .logo-container {
+    flex: 0 0 auto;
+}
+
+.navbar .dark-mode-toggle {
+    position: absolute;
+    right: calc(50% - 435px); /* Half of cards-row width (870px/2 = 435px) */
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Larger screens adjustment */
+@media (min-height: 900px) {
+    .navbar .dark-mode-toggle {
+        right: calc(50% - 511px); /* Half of larger cards-row width (1022px/2 = 511px) */
+    }
+}
+
+/* Handle the transition zone where cards-row becomes 100% width on large height screens */
+@media (min-height: 900px) and (max-width: 1022px) {
+    .navbar .dark-mode-toggle {
+        right: 1rem; /* Fallback to screen edge when cards-row is 100% width */
+    }
+}
+
+/* Mobile: fallback to right edge when cards-row goes full width */
+@media (max-width: 900px) {
+    .navbar .dark-mode-toggle {
+        right: 1rem;
+    }
 }
 
 

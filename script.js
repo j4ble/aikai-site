@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const darkModeToggle = document.getElementById('darkModeToggle');
+    const darkModeToggleButton = document.getElementById('darkModeToggleButton');
     const body = document.body;
     const previewImage = document.getElementById('previewImage');
 
@@ -44,6 +45,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (darkModeToggle) {
         darkModeToggle.addEventListener('change', () => {
             applyTheme(darkModeToggle.checked);
+        });
+    }
+
+    // Add event listener for the new toggle button
+    if (darkModeToggleButton) {
+        darkModeToggleButton.addEventListener('click', () => {
+            const isDark = body.classList.contains('dark-mode');
+            applyTheme(!isDark);
         });
     }
 

@@ -368,6 +368,60 @@
         transition: filter 0.3s ease !important;
         filter: brightness(0.8) !important;
     }
+
+    /* Dark Mode Toggle Button */
+    .dark-mode-toggle {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: auto;
+        transition: all 0.3s ease;
+        outline: none;
+    }
+
+    .dark-mode-toggle:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+
+    body.dark-mode .dark-mode-toggle:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .toggle-icon {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        transition: opacity 0.3s ease;
+    }
+
+    /* Light mode: show sun icon */
+    .toggle-icon-light {
+        opacity: 0.75;
+        visibility: visible;
+    }
+
+    .toggle-icon-dark {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    /* Dark mode: show moon icon */
+    body.dark-mode .toggle-icon-light {
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    body.dark-mode .toggle-icon-dark {
+        opacity: 1;
+        visibility: visible;
+    }
     </style>
     <link rel="stylesheet" href="https://sibforms.com/forms/end-form/build/sib-styles.css">
 </head>
@@ -381,6 +435,12 @@
             </div>
             <!-- End Logo Container -->
             
+            <!-- Dark Mode Toggle Button -->
+            <button id="darkModeToggleButton" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                <img src="sun_icon.png" alt="Light mode" class="toggle-icon toggle-icon-light">
+                <img src="moon_icon.png" alt="Dark mode" class="toggle-icon toggle-icon-dark">
+            </button>
+            <!-- End Dark Mode Toggle Button -->
            
         </nav>
     </header>
