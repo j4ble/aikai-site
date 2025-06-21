@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://aikai.app/sitemap.xml
+Sitemap: https://www.aikai.app/sitemap.xml
