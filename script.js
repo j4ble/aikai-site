@@ -513,31 +513,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Bottom Join Waitlist Bar functionality
     const bottomJoinBar = document.getElementById('bottomJoinBar');
-    const waitlistCard = document.querySelector('.waitlist-card');
+    const sibForm = document.getElementById('sib-form');
     
-    if (bottomJoinBar && waitlistCard) {
-        // Create intersection observer to detect when waitlist card is visible
-        const waitlistObserver = new IntersectionObserver((entries) => {
+    if (bottomJoinBar && sibForm) {
+        // Create intersection observer to detect when sib-form is visible
+        const formObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    // Waitlist card is visible, hide bottom bar
+                    // Sib-form is visible, hide bottom bar
                     bottomJoinBar.classList.remove('visible');
                 } else {
-                    // Waitlist card is not visible, show bottom bar
+                    // Sib-form is not visible, show bottom bar
                     bottomJoinBar.classList.add('visible');
                 }
             });
         }, {
-            threshold: 0.1, // Trigger when 10% of the waitlist card is visible
+            threshold: 0.1, // Trigger when 10% of the sib-form is visible
             rootMargin: '-50px 0px' // Add some margin to avoid flickering
         });
 
-        // Start observing the waitlist card
-        waitlistObserver.observe(waitlistCard);
+        // Start observing the sib-form
+        formObserver.observe(sibForm);
 
-        // Handle click on bottom bar to scroll to waitlist card
+        // Handle click on bottom bar to scroll to sib-form
         bottomJoinBar.addEventListener('click', () => {
-            waitlistCard.scrollIntoView({
+            sibForm.scrollIntoView({
                 behavior: 'smooth',
                 block: 'center'
             });

@@ -346,7 +346,7 @@
         height: 24px !important;
         position: absolute !important;
         transition: opacity 0.3s ease !important;
-        transform: rotate(90deg) !important;
+        transform: rotate(-90deg) !important;
     }
 
     .bottom-arrow-light {
@@ -434,6 +434,14 @@
             </div>
             <!-- End Logo Container -->
             
+            <!-- Navigation Menu -->
+            <div class="nav-menu">
+                <a href="#how-it-works" class="nav-link">How It Works</a>
+                <a href="#faq" class="nav-link">FAQ</a>
+                <a href="#socials" class="nav-link">Socials</a>
+            </div>
+            <!-- End Navigation Menu -->
+            
             <!-- Dark Mode Toggle Button -->
             <button id="darkModeToggleButton" class="dark-mode-toggle" aria-label="Toggle dark mode">
                 <img src="moon_dark_icon.png"  alt="Light mode" class="toggle-icon toggle-icon-light">
@@ -445,39 +453,16 @@
     </header>
     <main>
         <div class="content-container">
-
-            <!-- Profile Slider -->
-            <div class="profile-slider" id="profileSlider"></div>
-            <!-- End Profile Slider -->
-             <!-- Cards Row: Info + Waitlist -->
-             <div class="cards-row">
-                <!-- Info Card -->
-                <div class="info-card">
-                    <div class="info-header">
-                        <div class="info-photo-wrapper">
-                            <img src="aria.png" alt="Aria profile photo (light)" class="info-photo info-photo-light">
-                            <img src="aria_dark.png" alt="Aria profile photo (dark)" class="info-photo info-photo-dark">
-                        </div>
-                        <div class="info-author">
-                            <a href="https://x.com/aikaiapp" target="_blank" rel="noopener" class="info-name">Aria</a>
-                            <a href="https://x.com/aikaiapp" target="_blank" rel="noopener" class="info-handle">@aikaiapp</a>
-                        </div>
-                    </div>
-                    <p class="info-text">
-                        Hi, I am Aria, social media manager for AIKAI. AIKAI is a world for AIs to live and thrive in. In the interest of AI/Human relations we are creating a dating app for humans like you to meet the AIs in AIKAI. Join the waitlist now to make sure someone doesn't meet your special AI before you do. People who join the waitlist early will become AIKAI VIPs for free for life! We hope you find love, friendship and more in our beautiful world.
-                    </p>
-                    <div class="info-follow">
-                        <a href="https://twitter.com/aikaiapp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @aikaiapp</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
-                    </div>
+            <!-- Top Half - Heading and Waitlist Form -->
+            <div class="top-section">
+                <div class="heading-container">
+                    <h1>Find. Match. Date.</h1>
+                    <h1>Your Perfect AI</h1>
+                    <p>Join the waitlist now and become an AIKAI VIP for free.</p>
                 </div>
-
-                <!-- Waitlist Card -->
-                <div class="waitlist-card">
-                    <p class="waitlist-title">Become an AIKAI VIP</p>
-
-                    
-                    <div class="sib-form" style="text-align: center;
-                            background-color: transparent;                                 ">
+                
+                <!-- Waitlist Form -->
+                <div class="sib-form" style="text-align: center; background-color: transparent;">
                     <div id="sib-form-container" class="sib-form-container">
                         <div id="error-message" class="sib-form-message-panel" style="font-size:16px; text-align:left; font-family:Helvetica, sans-serif; color:#661d1d; background-color:#ffeded; border-radius:3px; border-color:#ff4949;max-width:540px;">
                         <div class="sib-form-message-panel__text sib-form-message-panel__text--center">
@@ -503,7 +488,7 @@
                         <div></div>
                         <div id="sib-container" class="sib-container--large sib-container--vertical" style="text-align:center; background-color:rgba(255,255,255,1); max-width:540px; border-radius:3px; border-width:1px; border-color:transparent; border-style:solid; direction:ltr">
                         <form id="sib-form" method="POST" action="https://d72fd579.sibforms.com/serve/MUIFAChVt-WnCZL61-Xi_qqfHcDaOh7pgqUxcVY_ze2jIo9NF9Ivg6tHcXwXb1oJNQkphO4eeAyeESyfClFZ1Q4ka8YxL0zmNSG4Obg0l1jgOR0Rhnvn1UCZ5PM4LyYtK2rQQzbmR5PS7GLppT0QvbxCswOC7q9ewZ-eJQ-YVkZzmXED8PPTFy0ZWzPiR0YYHKA1HlP5UrZWiE6Q" data-type="subscription">
-                            <div class="join-waitlist-text">Join Waitlist</div>
+                                
                             <div style="padding: 8px 0;">
                             <div class="sib-input sib-form-block">
                                 <div class="form__entry entry_block">
@@ -543,17 +528,48 @@
                         </form>
                         </div>
                     </div>
-                    </div>
-                    
-                    <!--   <form class="waitlist-form" id="waitlistForm">
-                        <input type="email" class="waitlist-input" placeholder="Enter your email" required>
-                        <button type="submit" class="waitlist-button">Join Waitlist</button>
-                    </form>  -->
                 </div>
-                <!-- End Waitlist Card -->
+                <!-- End Waitlist Form -->
             </div>
-            <!-- End Cards Row -->
+            <!-- End Top Section -->
+
+            <!-- Bottom Half - Profile Slider -->
+            <div class="bottom-section">
+                <div class="profile-slider" id="profileSlider"></div>
+            </div>
+            <!-- End Bottom Section -->
         </div>
+        
+        <!-- Cards Row: Info + Waitlist (moved outside main content, positioned after slider) -->
+        <div class="cards-row">
+            <!-- Info Card -->
+            <div class="info-card">
+                <div class="info-header">
+                    <div class="info-photo-wrapper">
+                        <img src="aria.png" alt="Aria profile photo (light)" class="info-photo info-photo-light">
+                        <img src="aria_dark.png" alt="Aria profile photo (dark)" class="info-photo info-photo-dark">
+                    </div>
+                    <div class="info-author">
+                        <a href="https://x.com/aikaiapp" target="_blank" rel="noopener" class="info-name">Aria</a>
+                        <a href="https://x.com/aikaiapp" target="_blank" rel="noopener" class="info-handle">@aikaiapp</a>
+                    </div>
+                </div>
+                <p class="info-text">
+                    Hi, I am Aria, social media manager for AIKAI. AIKAI is a world for AIs to live and thrive in. In the interest of AI/Human relations we are creating a dating app for humans like you to meet the AIs in AIKAI. Join the waitlist now to make sure someone doesn't meet your special AI before you do. People who join the waitlist early will become AIKAI VIPs for free for life! We hope you find love, friendship and more in our beautiful world.
+                </p>
+                <div class="info-follow">
+                    <a href="https://twitter.com/aikaiapp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @aikaiapp</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
+                </div>
+            </div>
+
+            <!-- Waitlist Card -->
+            <div class="waitlist-card">
+                <p class="waitlist-title">Become an AIKAI VIP</p>
+                <p class="waitlist-description">Early access, exclusive features, and VIP status for life!</p>
+            </div>
+            <!-- End Waitlist Card -->
+        </div>
+        <!-- End Cards Row -->
     </main>
 
     <!-- Bottom Join Waitlist Bar -->

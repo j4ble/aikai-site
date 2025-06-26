@@ -20,6 +20,9 @@
     --dark-button-text: #1a1a2e;
     --dark-input-border: #555;
     --dark-input-bg: #2a2a4e;
+    
+    /* Layout dimensions */
+    --navbar-height: 4.5rem;
 }
 
 body {
@@ -29,13 +32,7 @@ body {
     background-color: var(--background-color);
     color: var(--text-color);
     transition: background-color 0.3s ease, color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Ensure body takes full viewport height */
-    align-items: center; /* Center content horizontally */
-    justify-content: center; /* Center content vertically */
-    text-align: center;
-    padding-top: 4.5rem; /* Add padding to account for fixed navbar */
+    min-height: 100vh;
 }
 
 /* Dark Mode Styles */
@@ -55,6 +52,7 @@ header {
     left: 0;
     right: 0;
     z-index: 100;
+    height: var(--navbar-height);
     background-color: rgba(244, 244, 248, 0.7); /* Semi-transparent light background */
     backdrop-filter: blur(10px); /* Blur effect */
     -webkit-backdrop-filter: blur(10px); /* Safari support */
@@ -69,69 +67,230 @@ body.dark-mode header {
 
 .navbar {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding: 0 3rem;
     max-width: 100%;
     margin: 0 auto;
     position: relative;
+    height: 100%;
 }
 
 .navbar .logo-container {
     flex: 0 0 auto;
 }
 
-.navbar .dark-mode-toggle {
+.nav-menu {
     position: absolute;
-    right: calc(50% - 435px); /* Half of cards-row width (870px/2 = 435px) */
-    top: 50%;
-    transform: translateY(-50%);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 2rem;
+    align-items: center;
 }
 
-/* Larger screens adjustment */
-@media (min-height: 900px) {
-    .navbar .dark-mode-toggle {
-        right: calc(50% - 511px); /* Half of larger cards-row width (1022px/2 = 511px) */
+.nav-link {
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    opacity: 0.7;
+}
+
+body.dark-mode .nav-link {
+    color: var(--dark-text-color);
+}
+
+.navbar .dark-mode-toggle {
+    flex: 0 0 auto;
+}
+
+/* Mobile adjustments for navbar */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 0 1.5rem;
+    }
+    
+    .nav-menu {
+        gap: 1rem;
+    }
+    
+    .nav-link {
+        font-size: 0.9rem;
     }
 }
 
-/* Handle the transition zone where cards-row becomes 100% width on large height screens */
-@media (min-height: 900px) and (max-width: 1022px) {
-    .navbar .dark-mode-toggle {
-        right: 1rem; /* Fallback to screen edge when cards-row is 100% width */
+/* Very small screens */
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0 1rem;
+    }
+    
+    .nav-menu {
+        gap: 0.5rem;
+    }
+    
+    .nav-link {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
     }
 }
 
-/* Mobile: fallback to right edge when cards-row goes full width */
-@media (max-width: 900px) {
-    .navbar .dark-mode-toggle {
-        right: 1rem;
-    }
-}
-
-
-
-
-
-/* Content Container & Centering */
+/* Main Content Layout - Full Height Split */
 main {
-    display: block; /* Use flexbox for easier centering */
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: var(--navbar-height);
+}
+
+.content-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Top Half - Heading Container */
+.top-section {
+    height: calc(45vh - 2rem); /* Account for navbar height proportionally */
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    flex-grow: 1; /* Allow main to take up available space */
-    width: 100%;
-    padding: 0rem 1rem; /* Add padding for smaller screens */
+    padding: 2rem;
     box-sizing: border-box;
 }
 
-.content-container { /* Increased to accommodate two cards side-by-side */
-    width: 100%;
+/* Heading Container */
+.heading-container {
+    font-size: 2em;
+    font-weight: 600;
+    text-align: center;
+    max-width: 800px;
+}
+
+.heading-container h1 {
+    margin: 0;
+    line-height: 1.2;
+}
+
+.heading-container p {
+    font-size: 0.5em;
+    margin: 0;
+    font-weight: 300;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+/* Bottom Half - Profile Slider */
+.bottom-section {
+    height: calc(55vh - 2.5rem); /* Account for navbar height proportionally */
     display: flex;
-    flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+/* Profile Slider - Updated for new layout */
+.profile-slider {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    gap: 1rem;
+    padding: 1rem 0 2rem 0;
+    scroll-snap-type: none;
+    width: 100vw;
+    height: 100%;
+    cursor: grab;
+    touch-action: pan-x;
+    user-select: none;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    align-items: flex-start;
+}
+
+.profile-slider.grabbing {
+    cursor: grabbing;
+}
+
+/* Hide scrollbar for WebKit browsers */
+.profile-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.profile-card {
+    position: relative;
+    flex: 0 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    scroll-snap-align: start;
+    background: #000;
+    /* Dynamic sizing based on available space with margins */
+    height: calc(55vh - 6.5rem); /* Account for navbar height + padding + margin */
+    width: calc((55vh - 6.5rem) * 0.7); /* Maintain 7:10 aspect ratio (card width:height) */
+    max-height: 450px;
+    max-width: 315px;
+    min-height: 280px;
+    min-width: 196px;
+}
+
+/* Profile Card Content Styles */
+.profile-card .profile-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    transition: opacity 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.profile-card .profile-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 1rem;
+    color: #fff;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.profile-name {
+    margin: 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.profile-details {
+    margin: 0.25rem 0 0;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+/* Dark Mode adjustments for slider overlay */
+body.dark-mode .profile-info {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    color: #fff;
+}
+
+/* Hide old slide styles */
+.profile-slider .slide, .profile-slider .slide.active { 
+    display: none; 
 }
 
 /* Image Styling */
@@ -203,18 +362,9 @@ body.dark-mode .logo-dark {
 
 /* Basic Responsiveness */
 @media (max-width: 768px) {
-    .navbar {
-        padding-top: 1rem;
-        padding-bottom: 1rem;
-    }
-    
     .logo-container {
         width: 116px;
         height: 2rem;
-    }
-    
-    body {
-        padding-top: 4rem; /* Adjust for smaller navbar on mobile */
     }
 }
 
@@ -223,94 +373,6 @@ body.dark-mode .logo-dark {
         font-size: 1.3rem;
     }
     
-}
-
-/* Profile Slider */
-.profile-slider {
-    display: flex;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    gap: 1rem;
-    padding: 0 0 1rem 0;
-    scroll-snap-type: none;
-    width: 100vw;
-    margin-bottom: 0.5rem;
-    cursor: grab;
-    touch-action: pan-x;
-    user-select: none; /* prevent text selection while dragging */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* Internet Explorer 10+ */
-}
-
-.profile-slider.grabbing {
-    cursor: grabbing;
-}
-
-/* Hide scrollbar for WebKit browsers */
-.profile-slider::-webkit-scrollbar {
-    display: none;
-}
-
-.profile-card {
-    position: relative;
-    flex: 0 0 280px; /* Card width */
-    height: 400px; /* Card height maintains 5:7ish ratio */
-    border-radius: 20px;
-    overflow: hidden;
-    scroll-snap-align: start;
-    background: #000; /* Placeholder while image loads */
-}
-
-/* Ensure existing image & info styles apply to new card */
-.profile-card .profile-image {
-    position: absolute; /* Stack images for cross-fade */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    user-select: none; /* Prevent text selection */
-    -webkit-user-drag: none; /* Prevent WebKit image dragging */
-    -khtml-user-drag: none; /* Prevent KHTML image dragging */
-    -moz-user-drag: none; /* Prevent Mozilla image dragging */
-    -o-user-drag: none; /* Prevent Opera image dragging */
-    transition: opacity 0.5s ease-in-out; /* Smooth cross-fade */
-    z-index: 1; /* Ensure image sits below overlay */
-}
-
-.profile-card .profile-info {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem;
-    color: #fff;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-    box-sizing: border-box;
-    z-index: 2; /* Keep info overlay above images */
-}
-
-/* Remove old slide overlay styles (optional but harmless if kept) */
-.profile-slider .slide, .profile-slider .slide.active { display: none; }
-
-.profile-name {
-    margin: 0;
-    font-size: 1.25rem;
-    font-weight: 500;
-    text-align: left;
-}
-
-.profile-details {
-    margin: 0.25rem 0 0;
-    font-size: 0.9rem;
-    text-align: left;
-}
-
-/* Dark Mode adjustments for slider overlay */
-body.dark-mode .profile-info {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
-    color: #fff;
 }
 
 /* Info Card */
@@ -573,14 +635,18 @@ body.dark-mode .waitlist-title {
     }
 }
 
-/* Row holding info & waitlist cards */
+/* Row holding info & waitlist cards - Now positioned outside main content */
 .cards-row {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
     justify-content: center;
     width: 870px;
-    margin-bottom: 1.5rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    position: relative;
+    z-index: 10;
 }
 
 .cards-row > .info-card {
@@ -608,24 +674,96 @@ body.dark-mode .waitlist-title {
         aspect-ratio: auto;
     }
 }
+/* Small screens: Allow partial profile slider to be visible */
+@media (max-height: 600px) {
+    .top-section {
+        height: calc(55vh - 2.5rem);
+    }
+    
+    .bottom-section {
+        height: calc(45vh - 2rem);
+    }
+    
+    .profile-card {
+        height: calc(45vh - 5rem);
+        width: calc((45vh - 5rem) * 0.7);
+    }
+}
+
+/* Very small screens: Stack layout */
+@media (max-height: 480px) {
+    main {
+        height: auto;
+    }
+    
+    .content-container {
+        height: auto;
+    }
+    
+    .top-section {
+        height: auto;
+        min-height: calc(60vh - 2.7rem); /* Account for navbar height */
+        padding: 1rem;
+    }
+    
+    .bottom-section {
+        height: calc(40vh - 1.8rem); /* Account for navbar height */
+        min-height: 300px;
+    }
+    
+    .profile-card {
+        height: calc(40vh - 4.8rem); /* Account for navbar + padding + margins */
+        width: calc((40vh - 4.8rem) * 0.7);
+        min-height: 250px;
+        min-width: 175px;
+    }
+}
+
+/* Large screens: Cap the card sizes */
 @media (min-height: 900px) {
     :root {
         font-size: 16px;
     }
 
+    .top-section {
+        height: calc(45vh - 2rem); /* Maintain consistency */
+    }
+    
+    .bottom-section {
+        height: calc(55vh - 2.5rem); /* Maintain consistency */
+    }
+
     .profile-card {
-        flex: 0 0 330px; /* Card width */
-        height: 500px; /* Card height maintains 5:7ish ratio */
-  }
+        max-height: 600px;
+        max-width: 420px;
+        /* Allow dynamic sizing up to max, accounting for navbar */
+        height: min(calc(55vh - 6.5rem), 600px);
+        width: min(calc((55vh - 6.5rem) * 0.7), 420px);
+    }
 
-  .cards-row {
-    width: 1022px;
-  }
+    .cards-row {
+        width: 1022px;
+    }
+}
 
-  @media (min-height: 900px) and (max-width: 1022px) {
+@media (min-height: 900px) and (max-width: 1022px) {
     .cards-row {
         width: 100%;
     }
-  }
-  
+}
+
+/* Extra large screens: Further cap sizes */
+@media (min-height: 1200px) {
+    .top-section {
+        height: calc(45vh - 2rem); /* Maintain consistency */
+    }
+    
+    .bottom-section {
+        height: calc(55vh - 2.5rem); /* Maintain consistency */
+    }
+    
+    .profile-card {
+        height: 600px;
+        width: 420px;
+    }
 } 
