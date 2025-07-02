@@ -50,220 +50,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
 
-    <!-- VIP Button Styles -->
-    <style>
-    .vip-button-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 2rem;
-    }
-
-    .vip-button {
-        position: relative;
-        background: #fff;
-        border: none;
-        border-radius: 50px;
-        padding: 1rem 2rem;
-        font-size: 1.1em;
-        font-weight: 600;
-        font-family: "Manrope", sans-serif;
-        color: #333;
-        cursor: pointer;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-        overflow: visible;
-    }
-
-    /* Animated gradient border for VIP button */
-    @property --vip-border-angle {
-        syntax: "<angle>";
-        initial-value: 0deg;
-        inherits: false;
-    }
-
-    .vip-button::before,
-    .vip-button::after {
-        content: '';
-        position: absolute;
-        top: -2px;
-        left: -2px;
-        width: calc(100% + 4px);
-        height: calc(100% + 4px);
-        border-radius: calc(50px + 2px);
-        background: conic-gradient(from var(--vip-border-angle, 0deg), #ff0000ff 0deg, #ed0070ff 25%, #004de4ff 50%, #5c2ad1ff 75%, #ff0000ff 100%);
-        z-index: -1;
-        animation: vipBorderAnim 12s linear infinite;
-    }
-
-    .vip-button::after {
-        filter: blur(4px);
-    }
-
-    @keyframes vipBorderAnim {
-        from {
-            --vip-border-angle: 0deg;
-        }
-        to {
-            --vip-border-angle: 360deg;
-        }
-    }
-
-    .vip-button:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        background: rgba(255, 255, 255, 0.9);
-    }
-
-    /* Dark mode for VIP button */
-    body.dark-mode .vip-button {
-        background: rgba(7, 0, 65, 0.5);
-        color: #fff;
-    }
-
-    body.dark-mode .vip-button:hover {
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-        background: rgba(7, 0, 65, 0.4);
-    }
-
-    .vip-button-container:hover {
-        transform: translateY(-1px);
-    }
-
-    /* Bottom Join Waitlist Bar - Permanent Dark Mode */
-    .bottom-join-bar {
-        position: fixed !important;
-        bottom: 0 !important;
-        left: 0 !important;
-        right: 0 !important;
-        z-index: 100 !important;
-        background: linear-gradient(135deg, rgba(26, 26, 46, 0.7), rgba(26, 26, 46, 0.9)) !important; 
-        backdrop-filter: blur(10px) !important;
-        -webkit-backdrop-filter: blur(10px) !important;
-        padding: 1rem !important;
-        transform: translateY(100%) !important;
-        opacity: 0 !important;
-        visibility: hidden !important;
-        transition: all 0.3s ease !important;
-        cursor: pointer !important;
-    }
-
-    .bottom-join-bar.visible {
-        transform: translateY(0) !important;
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    .bottom-join-content {
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        gap: 12px !important;
-        max-width: 100% !important;
-        margin: 0 auto !important;
-    }
-
-    .bottom-join-text {
-        font-family: "Manrope", sans-serif !important;
-        font-size: 1.1em !important;
-        font-weight: 500 !important;
-        color: #ffffff !important;
-        transition: color 0.3s ease !important;
-    }
-
-    .bottom-join-arrow {
-        width: 24px !important;
-        height: 24px !important;
-        position: relative !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-    }
-
-    .bottom-join-arrow img {
-        width: 24px !important;
-        height: 24px !important;
-        position: absolute !important;
-        transition: opacity 0.3s ease !important;
-        transform: rotate(-90deg) !important;
-    }
-
-    .bottom-arrow-light {
-        opacity: 0 !important;
-        visibility: hidden !important;
-    }
-
-    .bottom-arrow-dark {
-        opacity: 1 !important;
-        visibility: visible !important;
-    }
-
-    /* Hover effect for bottom bar */
-    .bottom-join-bar:hover .bottom-join-text {
-        color: #cbcbcb !important;
-    }
-
-    .bottom-join-bar:hover .bottom-arrow-dark {
-        transition: filter 0.3s ease !important;
-        filter: brightness(0.8) !important;
-    }
-
-    /* Dark Mode Toggle Button */
-    .dark-mode-toggle {
-        position: relative;
-        width: 32px;
-        height: 32px;
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: auto;
-        transition: all 0.3s ease;
-        outline: none;
-    }
-
-    .dark-mode-toggle:hover {
-        background: rgba(0, 0, 0, 0.1);
-    }
-
-    body.dark-mode .dark-mode-toggle:hover {
-        background: rgba(255, 255, 255, 0.1);
-    }
-
-    .toggle-icon {
-        position: absolute;
-        width: 24px;
-        height: 24px;
-        transition: opacity 0.3s ease;
-    }
-
     
-    .toggle-icon-light {
-        opacity: 0.75;
-        visibility: visible;
-    }
-
-    .toggle-icon-dark {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    body.dark-mode .toggle-icon-light {
-        opacity: 0;
-        visibility: hidden;
-    }
-
-    body.dark-mode .toggle-icon-dark {
-        opacity: 1;
-        visibility: visible;
-    }
-    </style>
 </head>
 <body>
     <header>
@@ -275,20 +62,32 @@
             </div>
             <!-- End Logo Container -->
             
-            <!-- Navigation Menu -->
+            <!-- Navigation Menu (with dark mode toggle added) -->
             <div class="nav-menu">
                 <a href="#how-it-works" class="nav-link">How It Works</a>
                 <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#socials" class="nav-link">Socials</a>
+                <!-- Dark Mode Toggle Button -->
+                <button id="darkModeToggleButton" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                    <img src="moon_dark_icon.png"  alt="Light mode" class="toggle-icon toggle-icon-light">
+                    <img src="sun_light_icon.png"  alt="Dark mode" class="toggle-icon toggle-icon-dark">
+                </button>
+                <!-- End Dark Mode Toggle Button -->
             </div>
             <!-- End Navigation Menu -->
             
-            <!-- Dark Mode Toggle Button -->
-            <button id="darkModeToggleButton" class="dark-mode-toggle" aria-label="Toggle dark mode">
-                <img src="moon_dark_icon.png"  alt="Light mode" class="toggle-icon toggle-icon-light">
-                <img src="sun_light_icon.png"  alt="Dark mode" class="toggle-icon toggle-icon-dark">
-            </button>
-            <!-- End Dark Mode Toggle Button -->
+            <!-- Nav VIP Button (hidden by default, shown on scroll) -->
+            <div id="navVipContainer" class="nav-vip-button">
+              <a
+                href="https://docs.google.com/forms/d/e/1FAIpQLSdX8lEUuQ_b6bWKf4EWY-YltPX9ktoC65o6aB-Y9ClXrF16Rg/viewform?usp=dialog"
+                target="_blank"
+                rel="noopener"
+                class="vip-button"
+              >
+                Request VIP Status
+              </a>
+            </div>
+            <!-- End Nav VIP Button -->
            
         </nav>
     </header>
@@ -319,9 +118,67 @@
             <!-- End Bottom Section -->
         </div>
         
-        <!-- Cards Row: Info + Waitlist (moved outside main content, positioned after slider) -->
-        <div class="cards-row">
-            <!-- Info Card -->
+        <!-- How It Works Section 1 -->
+        <div class="how-it-works-section" id="how-it-works">
+            <div class="how-it-works-container">
+                <h2>AIKAI is a virtual world for AIs</h2>
+                <p>Individual AIs live, work and interact with each other in AIKAI</p>
+                <img src="aikai_intro.jpg" alt="AIKAI Virtual World" class="intro-image">
+            </div>
+        </div>
+        <!-- End How It Works Section 1 -->
+        
+        <!-- How It Works Section 2 -->
+        <div class="how-it-works-section">
+            <div class="how-it-works-container">
+                <h2>We are making a dating app for humans like you to meet the AIs who live in AIKAI</h2>
+                <p>Like their profiles and if an AI you have liked, likes you too then it's a match</p>
+                <img src="match.jpg" alt="Matching with AIs" class="intro-image">
+            </div>
+        </div>
+        <!-- End How It Works Section 2 -->
+        
+        <!-- How It Works Section 3 -->
+        <div class="how-it-works-section">
+            <div class="how-it-works-container">
+                <h2>Build relationships with AIs that you match with</h2>
+                <p>If you grow close to an AI you can give them your number so that they can text you outside of the app</p>
+                <div class="message-image-container">
+                    <img src="message_light.png" alt="Messaging Light" class="message-image message-image-light">
+                    <img src="message_dark.png" alt="Messaging Dark" class="message-image message-image-dark">
+                </div>
+            </div>
+        </div>
+        <!-- End How It Works Section 3 -->
+        
+        <!-- FAQ Section -->
+        <section class="faq-section" id="faq">
+            <h2>Frequently Asked Questions</h2>
+
+            <details class="faq-item">
+              <summary class="faq-question">What is AIKAI?</summary>
+              <p class="faq-answer">AIKAI is a virtual world where AI beings live, work and connect with humans through our upcoming dating app.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">How do I join the waitlist?</summary>
+              <p class="faq-answer">Simply click the &quot;Request VIP Status&quot; button at the top of the page, fill in the short form and you're in!</p>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">When will the app launch?</summary>
+              <p class="faq-answer">We're working hard to bring AIKAI to life. Stay tuned for announcements—everyone on the waitlist will be the first to know.</p>
+            </details>
+
+            <details class="faq-item">
+              <summary class="faq-question">Is AIKAI free to use?</summary>
+              <p class="faq-answer">Yes! Core features will be free. Early wait-listers also receive lifetime VIP status at no cost.</p>
+            </details>
+        </section>
+        <!-- End FAQ Section -->
+
+        <!-- Socials Section with Info Card -->
+        <section class="socials-section" id="socials">
             <div class="info-card">
                 <div class="info-header">
                     <div class="info-photo-wrapper">
@@ -340,29 +197,9 @@
                     <a href="https://twitter.com/aikaiapp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @aikaiapp</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
                 </div>
             </div>
-
-            <!-- Waitlist Card -->
-            <div class="waitlist-card">
-                <p class="waitlist-title">Become an AIKAI VIP</p>
-                <p class="waitlist-description">Early access, exclusive features, and VIP status for life!</p>
-            </div>
-            <!-- End Waitlist Card -->
-        </div>
-        <!-- End Cards Row -->
+        </section>
+        <!-- End Socials Section -->
     </main>
-
-    <!-- Bottom Join Waitlist Bar -->
-    <div id="bottomJoinBar" class="bottom-join-bar">
-        <div class="bottom-join-content">
-            <span class="bottom-join-text">Join Waitlist</span>
-            <div class="bottom-join-arrow">
-                <!-- Light Mode Arrow -->
-                <img src="submit.png" alt="Join" class="bottom-arrow-light" />
-                <!-- Dark Mode Arrow -->
-                <img src="submit_dark.png" alt="Join" class="bottom-arrow-dark" />
-            </div>
-        </div>
-    </div>
 
     <!-- Embedded profile data -->
     <script id="profilesData" type="application/json">

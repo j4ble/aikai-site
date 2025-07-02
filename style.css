@@ -196,6 +196,115 @@ main {
     overflow: hidden;
 }
 
+#how-it-works {
+    padding-top: 4rem !important;
+}
+
+/* How It Works Section */
+.how-it-works-section {
+    height: 100vh; /* Full viewport height for impact */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+/* How It Works Container */
+.how-it-works-container {
+    font-size: 1.8em;
+    font-weight: 600;
+    text-align: center;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.how-it-works-container h2 {
+    margin: 0;
+    line-height: 1.2;
+    font-size: 1.2em; /* Relative to container font-size */
+}
+
+.how-it-works-container p {
+    font-size: 0.5em; /* Smaller relative to h2 */
+    margin: 0;
+    font-weight: 300;
+    margin-top: 0.5rem;
+    margin-bottom: 2rem;
+}
+
+.intro-image {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+body.dark-mode .intro-image {
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+/* Message Image Container for Crossfade */
+.message-image-container {
+    position: relative;
+    max-width: 90%;
+    width: auto;
+    display: inline-block;
+}
+
+/* Shared Message Image Styling */
+.message-image {
+    max-width: 100%;
+    width: auto;
+    height: auto;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+    display: block;
+}
+
+/* Light image gives container its natural dimensions */
+.message-image-light {
+    position: relative;
+}
+
+/* Dark image overlays exactly on top */
+.message-image-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Light Mode - Show light image, hide dark image */
+.message-image-light {
+    opacity: 1;
+}
+
+.message-image-dark {
+    opacity: 0;
+}
+
+/* Dark Mode - Hide light image, show dark image */
+body.dark-mode .message-image-light {
+    opacity: 0;
+}
+
+body.dark-mode .message-image-dark {
+    opacity: 1;
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
 /* Profile Slider - Updated for new layout */
 .profile-slider {
     display: flex;
@@ -383,7 +492,7 @@ body.dark-mode .logo-dark {
     padding: 1rem 1.5rem 1rem 1.5rem;
     display: flex;
     flex-direction: column;
-    width: 100%;
+    width: 70%;
     box-sizing: border-box;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     margin-bottom: 1.5rem; /* Space below card */
@@ -689,6 +798,29 @@ body.dark-mode .waitlist-title {
         height: calc(45vh - 5rem);
         width: calc((45vh - 5rem) * 0.7);
     }
+    
+    .how-it-works-section {
+        height: 80vh;
+        padding: 1rem;
+    }
+
+    
+
+    .how-it-works-container {
+        font-size: 1.5em;
+    }
+    
+    .intro-image {
+        max-height: 40vh;
+    }
+    
+    .message-image-container {
+        max-height: 40vh;
+    }
+    
+    .message-image {
+        max-height: 40vh;
+    }
 }
 
 /* Very small screens: Stack layout */
@@ -718,6 +850,30 @@ body.dark-mode .waitlist-title {
         min-height: 250px;
         min-width: 175px;
     }
+    
+    .how-it-works-section {
+        height: auto;
+        min-height: 70vh;
+        padding: 1rem;
+    }
+    
+    .how-it-works-container {
+        font-size: 1.3em;
+    }
+    
+    .intro-image {
+        max-height: 35vh;
+        max-width: 95%;
+    }
+    
+    .message-image-container {
+        max-height: 35vh;
+        max-width: 95%;
+    }
+    
+    .message-image {
+        max-height: 35vh;
+    }
 }
 
 /* Large screens: Cap the card sizes */
@@ -745,6 +901,22 @@ body.dark-mode .waitlist-title {
     .cards-row {
         width: 1022px;
     }
+    
+    .how-it-works-container {
+        font-size: 2em;
+    }
+    
+    .intro-image {
+        max-height: 70vh;
+    }
+    
+    .message-image-container {
+        max-height: 70vh;
+    }
+    
+    .message-image {
+        max-height: 70vh;
+    }
 }
 
 @media (min-height: 900px) and (max-width: 1022px) {
@@ -768,3 +940,344 @@ body.dark-mode .waitlist-title {
         width: 420px;
     }
 } 
+
+
+.vip-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+}
+
+.vip-button {
+    position: relative;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50px;
+    padding: 1rem 2rem;
+    font-size: 1.1em;
+    font-weight: 600;
+    font-family: "Manrope", sans-serif;
+    color: #333;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: visible;
+}
+
+/* Animated gradient border for VIP button */
+@property --vip-border-angle {
+    syntax: "<angle>";
+    initial-value: 0deg;
+    inherits: false;
+}
+
+.vip-button::before,
+.vip-button::after {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    border-radius: calc(50px + 2px);
+    background: conic-gradient(from var(--vip-border-angle, 0deg), #ff0000ff 0deg, #ed0070ff 25%, #004de4ff 50%, #5c2ad1ff 75%, #ff0000ff 100%);
+    z-index: -1;
+    animation: vipBorderAnim 12s linear infinite;
+}
+
+.vip-button::after {
+    filter: blur(4px);
+}
+
+@keyframes vipBorderAnim {
+    from {
+        --vip-border-angle: 0deg;
+    }
+    to {
+        --vip-border-angle: 360deg;
+    }
+}
+
+.vip-button:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.7);
+}
+
+/* Dark mode for VIP button */
+body.dark-mode .vip-button {
+    background: rgba(7, 0, 65, 0.5);
+    color: #fff;
+}
+
+body.dark-mode .vip-button:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    background: rgba(7, 0, 65, 0.4);
+}
+
+.vip-button-container:hover {
+    transform: translateY(-1px);
+}
+
+/* Bottom Join Waitlist Bar - Permanent Dark Mode */
+.bottom-join-bar {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 100 !important;
+    background: linear-gradient(135deg, rgba(26, 26, 46, 0.7), rgba(26, 26, 46, 0.9)) !important; 
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+    padding: 1rem !important;
+    transform: translateY(100%) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    transition: all 0.3s ease !important;
+    cursor: pointer !important;
+}
+
+.bottom-join-bar.visible {
+    transform: translateY(0) !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+.bottom-join-content {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 0 1rem !important;
+}
+
+/* Bottom VIP Button Styles - Always Dark Mode */
+.bottom-vip-button {
+    font-size: 1rem !important;
+    padding: 0.8rem 1.5rem !important;
+    margin: 0 !important;
+    background: rgba(7, 0, 65, 0.5) !important;
+    color: #fff !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+}
+
+.bottom-vip-button:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3)!important;
+    background: rgba(7, 0, 65, 0.4)!important;
+}
+
+/* Remove the old styles that are no longer needed */
+.bottom-join-text {
+    display: none !important;
+}
+
+.bottom-join-arrow {
+    display: none !important;
+}
+
+.bottom-arrow-light {
+    display: none !important;
+}
+
+.bottom-arrow-dark {
+    display: none !important;
+}
+
+
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+    position: relative;
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: auto; /* Will be overridden when inside nav-menu */
+    transition: all 0.3s ease;
+    outline: none;
+}
+
+.dark-mode-toggle:hover {
+    background: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-mode .dark-mode-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.toggle-icon {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    transition: opacity 0.3s ease;
+}
+
+
+.toggle-icon-light {
+    opacity: 0.75;
+    visibility: visible;
+}
+
+.toggle-icon-dark {
+    opacity: 0;
+    visibility: hidden;
+}
+
+body.dark-mode .toggle-icon-light {
+    opacity: 0;
+    visibility: hidden;
+}
+
+body.dark-mode .toggle-icon-dark {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* When the toggle lives inside the centered nav-menu, reset the auto margin */
+.nav-menu .dark-mode-toggle {
+    margin-left: 0;
+}
+
+/* No longer needed alignment helper when nav VIP is visible */
+.dark-mode-toggle.with-nav-vip {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* Nav bar VIP button that appears when the main VIP button is not visible */
+.nav-vip-button {
+    position: absolute;
+    right: 3rem;
+    top: 50%;
+    transform: translateY(-50%) translateX(16px) scale(0.95);
+    margin-left: 0.75rem;
+    padding: 0;            /* container itself has no padding */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+
+.nav-vip-button.visible {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0) scale(1);
+    pointer-events: auto;
+}
+
+/* Ensure the VIP button inside the nav bar matches the logo height */
+.nav-vip-button .vip-button {
+    height: 2.5rem;              /* Matches .logo-container height on desktop */
+    padding: 0 1.25rem;          /* Horizontal padding only */
+    font-size: 1rem;
+    line-height: 1;              /* No extra vertical expansion */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Mobile adjustment to keep parity with smaller logo */
+@media (max-width: 768px) {
+    .nav-vip-button .vip-button {
+        height: 2rem;           /* Matches smaller logo */
+        padding: 0 1rem;
+        font-size: 0.9em;
+    }
+    /* Remove legacy padding that used to be on the container */
+    .nav-vip-button {
+        padding: 0;
+    }
+}
+
+/* ------------------------------------------------------------------ */
+/* FAQ Section                                                        */
+/* ------------------------------------------------------------------ */
+
+.faq-section {
+    padding: 4rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    background-color: var(--background-color);
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .faq-section {
+    background-color: var(--dark-background-color);
+}
+
+.faq-section h2 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+.faq-item {
+    width: 100%;
+    max-width: 800px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: background 0.3s ease;
+}
+
+body.dark-mode .faq-item {
+    background: rgba(41, 41, 78, 0.85);
+}
+
+.faq-question {
+    font-family: "Manrope", sans-serif;
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 1rem 1.25rem;
+    cursor: pointer;
+    outline: none;
+}
+
+/* Remove default arrow on summary */
+.faq-item summary {
+    list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-answer {
+    padding: 0 1.25rem 1.25rem 1.25rem;
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* Socials Section                                                    */
+/* ------------------------------------------------------------------ */
+
+.socials-section {
+    padding: 4rem 2rem 6rem 2rem; /* Extra bottom padding to avoid overlap with bottom bars */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--background-color);
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode .socials-section {
+    background-color: var(--dark-background-color);
+}
+
+html {
+    scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
+}

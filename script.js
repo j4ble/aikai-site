@@ -56,13 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Toggle dark mode when the logo is clicked
+    // Scroll to top when the logo is clicked (instead of toggling dark mode)
     const logoContainer = document.querySelector('.logo-container');
     if (logoContainer) {
         logoContainer.style.cursor = 'pointer'; // indicate interactivity
         logoContainer.addEventListener('click', () => {
-            const isDark = body.classList.contains('dark-mode');
-            applyTheme(!isDark);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
@@ -511,36 +510,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Bottom Join Waitlist Bar functionality
-    const bottomJoinBar = document.getElementById('bottomJoinBar');
-    const sibForm = document.getElementById('sib-form');
-    
-    if (bottomJoinBar && sibForm) {
-        // Create intersection observer to detect when sib-form is visible
-        const formObserver = new IntersectionObserver((entries) => {
+    // Nav Bar VIP Button functionality
+    const navVipContainer = document.getElementById('navVipContainer');
+    const vipButtonContainer = document.querySelector('.vip-button-container'); // main content button
+
+    if (navVipContainer && vipButtonContainer) {
+        const logoContainer = document.querySelector('.logo-container');
+
+        // Intersection observer to toggle nav VIP visibility
+        const vipObserver = new IntersectionObserver((entries) => {
             entries.forEach((entry) => {
                 if (entry.isIntersecting) {
-                    // Sib-form is visible, hide bottom bar
-                    bottomJoinBar.classList.remove('visible');
+                    // Main VIP visible – hide nav VIP
+                    navVipContainer.classList.remove('visible');
                 } else {
-                    // Sib-form is not visible, show bottom bar
-                    bottomJoinBar.classList.add('visible');
+                    // Main VIP not visible – show nav VIP
+                    navVipContainer.classList.add('visible');
                 }
             });
         }, {
-            threshold: 0.1, // Trigger when 10% of the sib-form is visible
-            rootMargin: '-50px 0px' // Add some margin to avoid flickering
+            threshold: 0.1,
+            rootMargin: '-50px 0px'
         });
 
-        // Start observing the sib-form
-        formObserver.observe(sibForm);
-
-        // Handle click on bottom bar to scroll to sib-form
-        bottomJoinBar.addEventListener('click', () => {
-            sibForm.scrollIntoView({
-                behavior: 'smooth',
-                block: 'center'
-            });
-        });
+        vipObserver.observe(vipButtonContainer);
     }
 }); 
