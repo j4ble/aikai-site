@@ -211,6 +211,9 @@ main {
     box-sizing: border-box;
 }
 
+.how-it-works-section h2 {
+    width:650px;
+}
 /* How It Works Container */
 .how-it-works-container {
     font-size: 1.8em;
@@ -492,7 +495,7 @@ body.dark-mode .logo-dark {
     padding: 1rem 1.5rem 1rem 1.5rem;
     display: flex;
     flex-direction: column;
-    width: 70%;
+    width: 800px;
     box-sizing: border-box;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     margin-bottom: 1.5rem; /* Space below card */
@@ -550,6 +553,7 @@ body.dark-mode .logo-dark {
 
 /* Follow button container */
 .info-follow {
+    margin-top: 1rem;
     text-align: center;
 }
 
