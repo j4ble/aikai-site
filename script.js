@@ -151,8 +151,20 @@ document.addEventListener('DOMContentLoaded', () => {
             info.innerHTML = `<h2 class="profile-name">${profile.name}, ${profile.age}</h2><p class="profile-details">${profile.details}</p>`;
             card.appendChild(info);
 
-            // Manual cycle on click/tap
-            const clickHandler = () => changeImage();
+            // Open modal on click/tap instead of cycling images
+            const clickHandler = () => {
+                // Get the currently visible image element
+                const visibleImg = card.querySelector('.profile-image[style*="opacity: 1"], .profile-image:not([style*="opacity"])');
+                if (visibleImg && visibleImg.src && !visibleImg.src.includes('aikai_profile_card.jpg')) {
+                    // Pass profile data for navigation
+                    const currentIdx = parseInt(visibleImg.dataset.idx, 10);
+                    openImageModal(visibleImg, {
+                        isProfile: true,
+                        profile: profile,
+                        currentIndex: currentIdx
+                    });
+                }
+            };
             card.addEventListener('click', clickHandler);
 
             let timerId = null;
@@ -535,4 +547,131 @@ document.addEventListener('DOMContentLoaded', () => {
 
         vipObserver.observe(vipButtonContainer);
     }
-}); 
+});
+
+// Global variables for modal navigation
+let currentModalImages = null;   // Array of full src strings currently being viewed
+let currentModalIndex  = 0;      // Index within the array
+
+// Image Modal Functions (defined globally)
+function openImageModal(img, profileData = null) {
+    const modal      = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const modalNav   = document.getElementById('modalNav');
+
+    if (!(modal && modalImage)) return;
+
+    /* -------------------------------------------------------------- */
+    /* Determine the image group (if any)                              */
+    /* -------------------------------------------------------------- */
+
+    if (profileData && profileData.isProfile) {
+        // From the profile slider → convert filenames to full paths
+        currentModalImages = profileData.profile.images.map(f => `images/${f}`);
+        currentModalIndex  = profileData.currentIndex;
+    } else {
+        // Could be an info-images gallery (possibly multi-image)
+        const container = img.closest('.info-images');
+        if (container) {
+            const imgs = Array.from(container.querySelectorAll('.info-image'));
+            if (imgs.length > 1) {
+                currentModalImages = imgs.map(el => el.getAttribute('src'));
+                currentModalIndex  = imgs.indexOf(img);
+            } else {
+                currentModalImages = null;
+            }
+        }
+    }
+
+    /* -------------------------------------------------------------- */
+    /* Show / hide navigation arrows                                  */
+    /* -------------------------------------------------------------- */
+    if (currentModalImages && currentModalImages.length > 1) {
+        modalNav.style.display = 'block';
+    } else {
+        modalNav.style.display = 'none';
+    }
+
+    /* -------------------------------------------------------------- */
+    /* Display the modal                                              */
+    /* -------------------------------------------------------------- */
+    modalImage.src = img.src;
+    modalImage.alt = img.alt;
+    modal.style.display = 'block';
+
+    // Prevent background scroll
+    document.body.style.overflow = 'hidden';
+
+    // Add listeners
+    document.addEventListener('keydown', handleModalKeydown);
+    modal.addEventListener('click',      handleModalBackgroundClick);
+}
+
+function closeImageModal() {
+    const modal    = document.getElementById('imageModal');
+    const modalNav = document.getElementById('modalNav');
+
+    if (!modal) return;
+
+    modal.style.display = 'none';
+    if (modalNav) modalNav.style.display = 'none';
+
+    currentModalImages = null;
+    currentModalIndex  = 0;
+
+    document.body.style.overflow = '';
+    document.removeEventListener('keydown', handleModalKeydown);
+    modal.removeEventListener('click',      handleModalBackgroundClick);
+}
+
+function handleModalKeydown(event) {
+    if (event.key === 'Escape') {
+        closeImageModal();
+        return;
+    }
+
+    if (!currentModalImages || currentModalImages.length <= 1) return;
+
+    if (event.key === 'ArrowLeft') {
+        event.preventDefault();
+        navigateModalImage(-1);
+    } else if (event.key === 'ArrowRight') {
+        event.preventDefault();
+        navigateModalImage(1);
+    }
+}
+
+function handleModalBackgroundClick(event) {
+    const modalImage = document.getElementById('modalImage');
+    const modalClose = document.querySelector('.modal-close');
+    const modalArrows = document.querySelectorAll('.modal-arrow');
+    
+    // Don't close if clicking on image, close button, or navigation arrows
+    let isArrowClick = false;
+    modalArrows.forEach(arrow => {
+        if (arrow.contains(event.target)) {
+            isArrowClick = true;
+        }
+    });
+    
+    if (event.target !== modalImage && event.target !== modalClose && !isArrowClick) {
+        closeImageModal();
+    }
+}
+
+function navigateModalImage(direction) {
+    if (!currentModalImages || currentModalImages.length <= 1) return;
+
+    const modalImage  = document.getElementById('modalImage');
+    const totalImages = currentModalImages.length;
+
+    currentModalIndex = (currentModalIndex + direction + totalImages) % totalImages;
+
+    const nextSrc = currentModalImages[currentModalIndex];
+
+    const preloader = new Image();
+    preloader.onload = () => {
+        if (modalImage) modalImage.src = nextSrc;
+    };
+    preloader.src = nextSrc;
+} 

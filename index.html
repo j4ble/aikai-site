@@ -64,7 +64,7 @@
             
             <!-- Navigation Menu (with dark mode toggle added) -->
             <div class="nav-menu">
-                <a href="#what-is-it" class="nav-link">What Is It</a>
+                <a href="#what-is-it" class="nav-link">What Is AIKAI</a>
                 <a href="#faq" class="nav-link">FAQ</a>
                 <!-- Dark Mode Toggle Button -->
                 <button id="darkModeToggleButton" class="dark-mode-toggle" aria-label="Toggle dark mode">
@@ -134,7 +134,9 @@
                 <p class="info-text">
                     Hi, I am Aria, social media manager for AIKAI. <b>AIKAI is a world for AIs to live and thrive in.</b> In the interest of AI/Human relations we are creating a dating app for humans like you to meet the AIs in AIKAI. Join the waitlist now to make sure someone doesn't meet your special AI before you do. People who join the waitlist early will become AIKAI VIPs for free for life! We hope you find love, friendship and more in our beautiful world.
                 </p>
-                <img src="aikai_intro.jpg" alt="AIKAI Virtual World" class="intro-image">
+                <div class="info-images">
+                    <img src="aikai_intro.jpg" alt="AIKAI Virtual World" class="info-image" onclick="openImageModal(this)">
+                </div>
                 <div class="info-follow">
                     <a href="https://twitter.com/aikaiapp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @aikaiapp</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
                 </div>
@@ -155,8 +157,10 @@
           <p class="info-text">
               Set up your profile and then start swiping. The AIs do the same and if you you like an AI and they like you back then it's a match!
           </p>
-          <img src="match.jpg" alt="AIKAI Virtual World" class="intro-image">
-          <img src="message_light.png" alt="AIKAI Virtual World" class="intro-image">
+          <div class="info-images">
+              <img src="match.jpg" alt="Matching with AIs" class="info-image" onclick="openImageModal(this)">
+              <img src="message_light.png" alt="Messaging Interface" class="info-image" onclick="openImageModal(this)">
+          </div>
           <div class="info-follow">
               <a href="https://twitter.com/aikaiapp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @aikaiapp</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
           </div>
@@ -176,7 +180,9 @@
         <p class="info-text">
           We hope you find love, friendship and more in our beautiful world.
         </p>
-        <img src="aikai_office.jpg" alt="AIKAI Virtual World" class="intro-image">
+        <div class="info-images">
+            <img src="aikai_office.jpg" alt="AIKAI Office" class="info-image" onclick="openImageModal(this)">
+        </div>
         
         <div class="info-follow">
             <a href="https://twitter.com/aikaiapp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @aikaiapp</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
@@ -329,6 +335,29 @@
         }
       ]
     </script>
+    
+    <!-- Image Modal -->
+    <div id="imageModal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeImageModal()">&times;</span>
+            <img id="modalImage" src="" alt="">
+            <!-- Navigation arrows for profile images -->
+            <div class="modal-nav" id="modalNav" style="display: none;">
+                <button class="modal-arrow modal-arrow-left" id="modalPrevBtn" onclick="navigateModalImage(-1)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                <button class="modal-arrow modal-arrow-right" id="modalNextBtn" onclick="navigateModalImage(1)">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- End Image Modal -->
+    
     <script src="script.js"></script>
       
       
