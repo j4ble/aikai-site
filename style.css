@@ -553,7 +553,6 @@ body.dark-mode .logo-dark {
 
 /* Follow button container */
 .info-follow {
-    margin-top: 1rem;
     text-align: center;
 }
 
@@ -1207,7 +1206,7 @@ body.dark-mode .toggle-icon-dark {
 /* ------------------------------------------------------------------ */
 
 .faq-section {
-    padding: 4rem 2rem;
+    padding: 1rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1270,12 +1269,21 @@ body.dark-mode .faq-item {
 /* ------------------------------------------------------------------ */
 
 .socials-section {
-    padding: 4rem 2rem 6rem 2rem; /* Extra bottom padding to avoid overlap with bottom bars */
+    padding: 1rem 2rem 1rem 2rem; /* Extra bottom padding to avoid overlap with bottom bars */
     display: flex;
+    flex-direction: column; /* Ensure vertical layout so heading sits above content */
+    gap: 1.5rem; /* Space between heading and cards, similar to FAQ section */
     justify-content: center;
     align-items: center;
     background-color: var(--background-color);
     transition: background-color 0.3s ease;
+}
+
+.socials-section h2 {
+    margin: 0 0 1rem 0;
+    font-size: 2rem;
+    font-weight: 600;
+    text-align: center;
 }
 
 body.dark-mode .socials-section {
