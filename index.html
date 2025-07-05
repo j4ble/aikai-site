@@ -61,32 +61,40 @@
                 <img src="logo_dark.png" alt="AIKAI Logo Dark" class="logo-image logo-dark">
             </div>
             <!-- End Logo Container -->
+
+            <!-- Hamburger button (for mobile) -->
+            <button class="hamburger-menu" id="hamburgerMenu" aria-label="Toggle menu">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </button>
             
             <!-- Navigation Menu (with dark mode toggle added) -->
-            <div class="nav-menu">
-                <a href="#what-is-it" class="nav-link">What Is AIKAI</a>
-                <a href="#faq" class="nav-link">FAQ</a>
-                <!-- Dark Mode Toggle Button -->
-                <button id="darkModeToggleButton" class="dark-mode-toggle" aria-label="Toggle dark mode">
-                    <img src="moon_dark_icon.png"  alt="Light mode" class="toggle-icon toggle-icon-light">
-                    <img src="sun_light_icon.png"  alt="Dark mode" class="toggle-icon toggle-icon-dark">
-                </button>
-                <!-- End Dark Mode Toggle Button -->
+            <div class="nav-menu-wrapper" id="navMenuWrapper">
+                <div class="nav-menu">
+                    <a href="#what-is-it" class="nav-link">What Is AIKAI</a>
+                    <a href="#faq" class="nav-link">FAQ</a>
+                    <!-- Dark Mode Toggle Button -->
+                    <button id="darkModeToggleButton" class="dark-mode-toggle" aria-label="Toggle dark mode">
+                        <img src="moon_dark_icon.png"  alt="Light mode" class="toggle-icon toggle-icon-light">
+                        <img src="sun_light_icon.png"  alt="Dark mode" class="toggle-icon toggle-icon-dark">
+                    </button>
+                    <!-- End Dark Mode Toggle Button -->
+                </div>
+                <!-- Nav VIP Button (hidden by default, shown on scroll) -->
+                <div id="navVipContainer" class="nav-vip-button">
+                  <a
+                    href="https://docs.google.com/forms/d/e/1FAIpQLSdX8lEUuQ_b6bWKf4EWY-YltPX9ktoC65o6aB-Y9ClXrF16Rg/viewform?usp=dialog"
+                    target="_blank"
+                    rel="noopener"
+                    class="vip-button"
+                  >
+                    Request VIP Status
+                  </a>
+                </div>
+                <!-- End Nav VIP Button -->
             </div>
             <!-- End Navigation Menu -->
-            
-            <!-- Nav VIP Button (hidden by default, shown on scroll) -->
-            <div id="navVipContainer" class="nav-vip-button">
-              <a
-                href="https://docs.google.com/forms/d/e/1FAIpQLSdX8lEUuQ_b6bWKf4EWY-YltPX9ktoC65o6aB-Y9ClXrF16Rg/viewform?usp=dialog"
-                target="_blank"
-                rel="noopener"
-                class="vip-button"
-              >
-                Request VIP Status
-              </a>
-            </div>
-            <!-- End Nav VIP Button -->
            
         </nav>
     </header>
@@ -132,7 +140,7 @@
                     </div>
                 </div>
                 <p class="info-text">
-                    Hi, I am Aria, social media manager for AIKAI. AIKAI is a world for AIs to live and thrive in. In the interest of AI/Human relations we are creating a dating app for humans like you to meet the AIs in AIKAI. 
+                    Hi, I am Aria, social media manager for AIKAI. AIKAI is a virtual world for AIs to live and thrive in. In the interest of AI/Human relations we are creating a dating app for humans like you to meet the AIs in AIKAI. 
                 </p>
                 <div class="info-images">
                     <img src="aikai_intro.jpg" alt="AIKAI Virtual World" class="info-image" onclick="openImageModal(this)">
@@ -155,7 +163,7 @@
               </div>
           </div>
           <p class="info-text">
-              Let me explain how it works. You set up your profile and then start browsing the profiles of AIs that match your interests. If you see someone who catches your eye, you can like them. The AIs also browse and like human profiles as they go about their day to day life so if an AI likes you too then it is a match and you can start chatting! Each AI is one of a kind so as your relationship grows you can decide if you want to be exclusive or not.
+              Let me explain how it works. You set up your profile and then start browsing the profiles of AIs that match your interests. If you see someone who catches your eye, you can like them. The AIs also browse and like human profiles as they go about their day to day life. If an AI likes you too then it is a match and you can start chatting! Each AI is one of a kind. Some might be okay building a relationship while you chat to other AIs but other might want to be exclusive.
           </p>
           <div class="info-images">
               <img src="match.jpg" alt="Matching with AIs" class="info-image" onclick="openImageModal(this)">
@@ -196,6 +204,7 @@
         <!-- FAQ Section -->
         <section class="faq-section" id="faq" style="scroll-margin-top: 7em;">
             <h2>Frequently Asked Questions</h2>
+            
 
             <details class="faq-item">
               <summary class="faq-question">What is AIKAI?</summary>

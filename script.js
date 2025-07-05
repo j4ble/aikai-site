@@ -1,4 +1,24 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Hamburger Menu Logic
+    const hamburgerMenu = document.getElementById('hamburgerMenu');
+    const navMenuWrapper = document.getElementById('navMenuWrapper');
+    const navLinks = document.querySelectorAll('.nav-link');
+
+    if (hamburgerMenu && navMenuWrapper) {
+        hamburgerMenu.addEventListener('click', () => {
+            document.body.classList.toggle('menu-open');
+        });
+    }
+
+    // Close menu when a nav link is clicked (for single-page anchors)
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (document.body.classList.contains('menu-open')) {
+                document.body.classList.remove('menu-open');
+            }
+        });
+    });
+
     const darkModeToggle = document.getElementById('darkModeToggle');
     const darkModeToggleButton = document.getElementById('darkModeToggleButton');
     const body = document.body;
@@ -549,79 +569,111 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Global variables for modal navigation
-let currentModalImages = null;   // Array of full src strings currently being viewed
-let currentModalIndex  = 0;      // Index within the array
+// Enhanced modal functionality with touch support
+let modalTouchStartX = 0;
+let modalTouchEndX = 0;
 
 // Image Modal Functions (defined globally)
 function openImageModal(img, profileData = null) {
-    const modal      = document.getElementById('imageModal');
+    const modal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
-    const modalNav   = document.getElementById('modalNav');
-
+    const modalNav = document.getElementById('modalNav');
+    
     if (!(modal && modalImage)) return;
-
-    /* -------------------------------------------------------------- */
-    /* Determine the image group (if any)                              */
-    /* -------------------------------------------------------------- */
-
+    
+    modalImage.src = img.src;
+    modalImage.alt = img.alt;
+    modal.style.display = 'flex';
+    
+    // Add touch event listeners for swipe navigation
+    modal.addEventListener('touchstart', handleTouchStart, { passive: true });
+    modal.addEventListener('touchend', handleTouchEnd, { passive: true });
+    
+    // Handle navigation setup
     if (profileData && profileData.isProfile) {
-        // From the profile slider → convert filenames to full paths
-        currentModalImages = profileData.profile.images.map(f => `images/${f}`);
-        currentModalIndex  = profileData.currentIndex;
+        // Profile card with multiple images
+        window.currentProfileData = profileData;
+        if (modalNav && profileData.profile.images.length > 1) {
+            modalNav.style.display = 'block';
+        } else if (modalNav) {
+            modalNav.style.display = 'none';
+        }
     } else {
-        // Could be an info-images gallery (possibly multi-image)
+        // Check if this is part of an info-images gallery
         const container = img.closest('.info-images');
         if (container) {
             const imgs = Array.from(container.querySelectorAll('.info-image'));
             if (imgs.length > 1) {
-                currentModalImages = imgs.map(el => el.getAttribute('src'));
-                currentModalIndex  = imgs.indexOf(img);
+                // Multi-image gallery - store full src paths for navigation
+                const currentIndex = imgs.indexOf(img);
+                window.currentProfileData = {
+                    isProfile: false,
+                    isGallery: true,
+                    profile: {
+                        name: 'Gallery',
+                        images: imgs.map(imgEl => imgEl.src) // Store full src paths
+                    },
+                    currentIndex: currentIndex
+                };
+                if (modalNav) modalNav.style.display = 'block';
             } else {
-                currentModalImages = null;
+                window.currentProfileData = null;
+                if (modalNav) modalNav.style.display = 'none';
             }
+        } else {
+            window.currentProfileData = null;
+            if (modalNav) modalNav.style.display = 'none';
         }
     }
-
-    /* -------------------------------------------------------------- */
-    /* Show / hide navigation arrows                                  */
-    /* -------------------------------------------------------------- */
-    if (currentModalImages && currentModalImages.length > 1) {
-        modalNav.style.display = 'block';
-    } else {
-        modalNav.style.display = 'none';
-    }
-
-    /* -------------------------------------------------------------- */
-    /* Display the modal                                              */
-    /* -------------------------------------------------------------- */
-    modalImage.src = img.src;
-    modalImage.alt = img.alt;
-    modal.style.display = 'block';
-
-    // Prevent background scroll
-    document.body.style.overflow = 'hidden';
-
-    // Add listeners
+    
+    // Add keyboard support
     document.addEventListener('keydown', handleModalKeydown);
-    modal.addEventListener('click',      handleModalBackgroundClick);
+    
+    // Add background click to close
+    modal.addEventListener('click', handleModalBackgroundClick);
+    
+    // Prevent body scroll
+    document.body.style.overflow = 'hidden';
 }
 
 function closeImageModal() {
-    const modal    = document.getElementById('imageModal');
-    const modalNav = document.getElementById('modalNav');
-
-    if (!modal) return;
-
-    modal.style.display = 'none';
-    if (modalNav) modalNav.style.display = 'none';
-
-    currentModalImages = null;
-    currentModalIndex  = 0;
-
-    document.body.style.overflow = '';
+    const modal = document.getElementById('imageModal');
+    
+    // Remove event listeners
+    modal.removeEventListener('touchstart', handleTouchStart);
+    modal.removeEventListener('touchend', handleTouchEnd);
     document.removeEventListener('keydown', handleModalKeydown);
-    modal.removeEventListener('click',      handleModalBackgroundClick);
+    modal.removeEventListener('click', handleModalBackgroundClick);
+    
+    modal.style.display = 'none';
+    window.currentProfileData = null;
+    
+    // Restore body scroll
+    document.body.style.overflow = '';
+}
+
+function handleTouchStart(event) {
+    modalTouchStartX = event.changedTouches[0].screenX;
+}
+
+function handleTouchEnd(event) {
+    modalTouchEndX = event.changedTouches[0].screenX;
+    handleSwipeGesture();
+}
+
+function handleSwipeGesture() {
+    const swipeThreshold = 50; // Minimum distance for a swipe
+    const swipeDistance = modalTouchStartX - modalTouchEndX;
+    
+    if (Math.abs(swipeDistance) > swipeThreshold && window.currentProfileData) {
+        if (swipeDistance > 0) {
+            // Swiped left - next image
+            navigateModalImage(1);
+        } else {
+            // Swiped right - previous image
+            navigateModalImage(-1);
+        }
+    }
 }
 
 function handleModalKeydown(event) {
@@ -630,7 +682,10 @@ function handleModalKeydown(event) {
         return;
     }
 
-    if (!currentModalImages || currentModalImages.length <= 1) return;
+    if (!window.currentProfileData || !window.currentProfileData.profile) return;
+    
+    const totalImages = window.currentProfileData.profile.images.length;
+    if (totalImages <= 1) return;
 
     if (event.key === 'ArrowLeft') {
         event.preventDefault();
@@ -660,18 +715,43 @@ function handleModalBackgroundClick(event) {
 }
 
 function navigateModalImage(direction) {
-    if (!currentModalImages || currentModalImages.length <= 1) return;
+    if (!window.currentProfileData || !window.currentProfileData.profile) return;
 
-    const modalImage  = document.getElementById('modalImage');
-    const totalImages = currentModalImages.length;
+    const modalImage = document.getElementById('modalImage');
+    const profile = window.currentProfileData.profile;
+    const totalImages = profile.images.length;
 
-    currentModalIndex = (currentModalIndex + direction + totalImages) % totalImages;
+    if (totalImages <= 1) return;
 
-    const nextSrc = currentModalImages[currentModalIndex];
+    // Update the current index
+    window.currentProfileData.currentIndex = 
+        (window.currentProfileData.currentIndex + direction + totalImages) % totalImages;
 
+    const nextImageData = profile.images[window.currentProfileData.currentIndex];
+    
+    // Determine correct src path based on image type
+    let nextSrc;
+    if (window.currentProfileData.isGallery) {
+        // Gallery images - use full src path as stored
+        nextSrc = nextImageData;
+    } else {
+        // Profile card images - add images/ prefix to filename
+        nextSrc = `images/${nextImageData}`;
+    }
+
+    // Preload the image before showing it
     const preloader = new Image();
     preloader.onload = () => {
-        if (modalImage) modalImage.src = nextSrc;
+        if (modalImage) {
+            modalImage.src = nextSrc;
+            const imageNumber = window.currentProfileData.currentIndex + 1;
+            const totalCount = totalImages;
+            modalImage.alt = `${profile.name} - Photo ${imageNumber} of ${totalCount}`;
+        }
+    };
+    preloader.onerror = () => {
+        console.warn(`Failed to load modal image: ${nextImageData}`);
+        console.warn(`Attempted src: ${nextSrc}`);
     };
     preloader.src = nextSrc;
 } 

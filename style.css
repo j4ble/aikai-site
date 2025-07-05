@@ -1,3 +1,225 @@
+/* Enhanced Responsiveness Improvements */
+
+/* Use dynamic viewport height where available */
+@supports (height: 100dvh) {
+    main {
+        height: 100dvh;
+    }
+    
+    .how-it-works-section {
+        height: 100dvh;
+    }
+}
+
+/* Add min-height fallbacks for viewport-based layouts */
+main {
+    min-height: 600px; /* Ensure minimum usable height */
+}
+
+.top-section {
+    min-height: 250px; /* Ensure heading section is always readable */
+}
+
+.bottom-section {
+    min-height: 300px; /* Ensure profile cards are always usable */
+}
+
+/* Improve profile card responsiveness */
+.profile-card {
+    /* Add more flexible sizing */
+    min-height: clamp(250px, 40vh, 450px);
+    min-width: clamp(175px, 28vw, 315px);
+    max-height: clamp(350px, 55vh, 600px);
+    max-width: clamp(245px, 38vw, 420px);
+}
+@media (max-width: 540px) {
+.nav-vip-button .vip-button {
+    font-size: 0.7rem !important;
+}
+}
+
+/* Better navbar responsiveness */
+@media (max-width: 480px) {
+    
+    
+    .navbar {
+        padding: 0 1rem;
+        flex-wrap: wrap;
+        min-height: var(--navbar-height);
+    }
+    
+    .nav-menu {
+        order: 3;
+        width: 100%;
+        justify-content: space-around;
+        padding-top: 0.5rem;
+        margin-top: 0.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    body.dark-mode .nav-menu {
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-link {
+        font-size: 0.85rem;
+        padding: 0.5rem;
+    }
+}
+
+/* Improve text scaling across all sections */
+.heading-container h1 {
+    font-size: clamp(1.5rem, 7vw + 0.5rem, 3.5rem);
+    line-height: clamp(1.1, 5vw * 0.2 + 1, 1.3);
+}
+
+.heading-container p {
+    font-size: clamp(0.9rem, 2.5vw + 0.3rem, 1.4rem);
+}
+
+.faq-section h2,
+.socials-section h2 {
+    font-size: clamp(1.5rem, 4vw + 0.5rem, 2.5rem);
+}
+
+.faq-question {
+    font-size: clamp(1rem, 2.5vw + 0.5rem, 1.2rem);
+}
+
+.faq-answer {
+    font-size: clamp(0.9rem, 2vw + 0.4rem, 1.1rem);
+}
+
+/* Better info card responsiveness */
+.info-card {
+    max-width: clamp(280px, 95vw, 500px);
+    padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.info-text {
+    font-size: clamp(0.9rem, 2.2vw + 0.3rem, 1.1rem);
+    line-height: clamp(1.3, 2vw + 1.2, 1.6);
+}
+
+/* Improve waitlist card */
+.waitlist-card {
+    max-width: clamp(280px, 95vw, 400px);
+    padding: clamp(1rem, 4vw, 2rem);
+}
+
+.waitlist-title {
+    font-size: clamp(1.8rem, 5vw + 0.5rem, 3rem);
+}
+
+/* Better modal responsiveness */
+.modal-arrow {
+    width: clamp(40px, 8vw, 60px);
+    height: clamp(40px, 8vw, 60px);
+}
+
+.modal-arrow svg {
+    width: clamp(18px, 4vw, 28px);
+    height: clamp(18px, 4vw, 28px);
+}
+
+/* Ultra-wide screen improvements */
+@media (min-width: 1920px) {
+    .content-container,
+    .cards-row,
+    .faq-section,
+    .socials-section {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    :root {
+        font-size: 18px; /* Slightly larger base font for very large screens */
+    }
+}
+
+/* Very small height screens (landscape phones) */
+@media (max-height: 500px) and (orientation: landscape) {
+    main {
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .content-container {
+        flex-direction: row;
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height));
+    }
+    
+    .top-section {
+        flex: 0 0 50%;
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height));
+    }
+    
+    .bottom-section {
+        flex: 1;
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height));
+    }
+    
+    .heading-container {
+        font-size: 1.5em;
+    }
+    
+    .profile-card {
+        height: clamp(280px, 80vh, 350px);
+        width: clamp(196px, 56vh, 245px);
+    }
+}
+
+/* Improve touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .nav-link,
+    .dark-mode-toggle,
+    .vip-button {
+        min-height: 44px; /* iOS recommended touch target size */
+        min-width: 44px;
+    }
+    
+    .profile-card {
+        cursor: pointer; /* Ensure cards show they're tappable */
+    }
+    
+    .modal-arrow {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .profile-image,
+    .logo-image,
+    .message-image,
+    .info-photo,
+    .vip-button,
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .info-card,
+    .waitlist-card,
+    .faq-item {
+        border: 2px solid currentColor;
+    }
+    
+    .nav-link:hover,
+    .vip-button:hover {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}
+
 /* Basic Resets & Defaults */
 :root {
     font-size: 15px;
@@ -67,7 +289,6 @@ body.dark-mode header {
 
 .navbar {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     padding: 0 3rem;
     max-width: 100%;
@@ -77,16 +298,429 @@ body.dark-mode header {
 }
 
 .navbar .logo-container {
-    flex: 0 0 auto;
+    flex: 1 1 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.nav-menu-wrapper {
+    display: contents;
 }
 
 .nav-menu {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    flex: 0 0 auto;
     display: flex;
     gap: 2rem;
     align-items: center;
+    justify-content: center;
+}
+
+.nav-link {
+    font-family: "Manrope", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.3s ease, opacity 0.3s ease;
+    position: relative;
+}
+
+.nav-link:hover {
+    opacity: 0.7;
+}
+
+body.dark-mode .nav-link {
+    color: var(--dark-text-color);
+}
+
+.navbar .dark-mode-toggle {
+    flex: 0 0 auto;
+}
+
+/* Hamburger Menu Styles */
+.hamburger-menu {
+    display: none; /* Hidden by default */
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 10px 1rem 10px 10px;
+    z-index: 101; /* Above navbar content */
+}
+
+.hamburger-box {
+    width: 28px;
+    height: 20px;
+    display: block;
+    position: relative;
+}
+
+.hamburger-inner,
+.hamburger-inner::before,
+.hamburger-inner::after {
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-color);
+    border-radius: 4px;
+    position: absolute;
+    transition: transform 0.2s ease-in-out, top 0.2s ease-in-out, bottom 0.2s ease-in-out;
+}
+
+body.dark-mode .hamburger-inner,
+body.dark-mode .hamburger-inner::before,
+body.dark-mode .hamburger-inner::after {
+    background-color: var(--dark-text-color);
+}
+
+.hamburger-inner {
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.hamburger-inner::before,
+.hamburger-inner::after {
+    content: '';
+    display: block;
+}
+
+.hamburger-inner::before {
+    top: -8px;
+}
+
+.hamburger-inner::after {
+    bottom: -8px;
+}
+
+/* Hamburger animation to 'X' */
+.menu-open .hamburger-inner {
+    transform: rotate(45deg);
+}
+
+.menu-open .hamburger-inner::before {
+    top: 0;
+    transform: rotate(90deg);
+}
+
+.menu-open .hamburger-inner::after {
+    bottom: 0;
+    transform: rotate(90deg);
+}
+
+@media (max-width: 499.98px) {
+    .navbar {
+        justify-content: space-between;
+        padding: 0 1rem;
+    }
+    
+    .hamburger-menu {
+        display: block; /* Show hamburger on mobile */
+    }
+
+    .nav-menu-wrapper {
+        display: none !important; /* Hide nav content by default, override contents */
+        position: absolute;
+        top: var(--navbar-height);
+        left: 0;
+        right: 0;
+        background-color: rgba(244, 244, 248, 0.7); /* Semi-transparent light background */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        padding: 1rem;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    body.dark-mode .nav-menu-wrapper {
+        background-color: rgba(26, 26, 46, 0.7); /* Semi-transparent dark background */
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    
+    .menu-open .nav-menu-wrapper {
+        display: flex !important; /* Show when menu is open, override contents */
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+    
+    /* Hide VIP button by default in mobile, show only when menu is open */
+    .nav-vip-button {
+        opacity: 0 !important;
+        transform: translateY(-10px) !important;
+        pointer-events: none !important;
+        transition: all 0.3s ease !important;
+    }
+    
+    /* Show VIP button when mobile menu is open */
+    .menu-open .nav-vip-button {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
+        pointer-events: auto !important;
+    }
+    
+    /* Style VIP button in mobile menu */
+    .menu-open .nav-vip-button .vip-button {
+        font-size: 0.9rem !important;
+        padding: 0 0.75rem !important;
+    }
+}
+
+/* Improve text scaling across all sections */
+.heading-container h1 {
+    font-size: clamp(1.5rem, 7vw + 0.5rem, 3.5rem);
+    line-height: clamp(1.1, 5vw * 0.2 + 1, 1.3);
+}
+
+.heading-container p {
+    font-size: clamp(0.9rem, 2.5vw + 0.3rem, 1.4rem);
+}
+
+.faq-section h2,
+.socials-section h2 {
+    font-size: clamp(1.5rem, 4vw + 0.5rem, 2.5rem);
+}
+
+.faq-question {
+    font-size: clamp(1rem, 2.5vw + 0.5rem, 1.2rem);
+}
+
+.faq-answer {
+    font-size: clamp(0.9rem, 2vw + 0.4rem, 1.1rem);
+}
+
+/* Better info card responsiveness */
+.info-card {
+    max-width: clamp(280px, 95vw, 500px);
+    padding: clamp(1rem, 3vw, 1.5rem);
+}
+
+.info-text {
+    font-size: clamp(0.9rem, 2.2vw + 0.3rem, 1.1rem);
+    line-height: clamp(1.3, 2vw + 1.2, 1.6);
+}
+
+/* Improve waitlist card */
+.waitlist-card {
+    max-width: clamp(280px, 95vw, 400px);
+    padding: clamp(1rem, 4vw, 2rem);
+}
+
+.waitlist-title {
+    font-size: clamp(1.8rem, 5vw + 0.5rem, 3rem);
+}
+
+/* Better modal responsiveness */
+.modal-arrow {
+    width: clamp(40px, 8vw, 60px);
+    height: clamp(40px, 8vw, 60px);
+}
+
+.modal-arrow svg {
+    width: clamp(18px, 4vw, 28px);
+    height: clamp(18px, 4vw, 28px);
+}
+
+/* Ultra-wide screen improvements */
+@media (min-width: 1920px) {
+    .content-container,
+    .cards-row,
+    .faq-section,
+    .socials-section {
+        max-width: 1200px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    :root {
+        font-size: 18px; /* Slightly larger base font for very large screens */
+    }
+}
+
+/* Very small height screens (landscape phones) */
+@media (max-height: 500px) and (orientation: landscape) {
+    main {
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .content-container {
+        flex-direction: row;
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height));
+    }
+    
+    .top-section {
+        flex: 0 0 50%;
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height));
+    }
+    
+    .bottom-section {
+        flex: 1;
+        height: auto;
+        min-height: calc(100vh - var(--navbar-height));
+    }
+    
+    .heading-container {
+        font-size: 1.5em;
+    }
+    
+    .profile-card {
+        height: clamp(280px, 80vh, 350px);
+        width: clamp(196px, 56vh, 245px);
+    }
+}
+
+/* Improve touch targets for mobile */
+@media (hover: none) and (pointer: coarse) {
+    .nav-link,
+    .dark-mode-toggle,
+    .vip-button {
+        min-height: 44px; /* iOS recommended touch target size */
+        min-width: 44px;
+    }
+    
+    .profile-card {
+        cursor: pointer; /* Ensure cards show they're tappable */
+    }
+    
+    .modal-arrow {
+        min-height: 44px;
+        min-width: 44px;
+    }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+    .profile-image,
+    .logo-image,
+    .message-image,
+    .info-photo,
+    .vip-button,
+    * {
+        transition: none !important;
+        animation: none !important;
+    }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+    .info-card,
+    .waitlist-card,
+    .faq-item {
+        border: 2px solid currentColor;
+    }
+    
+    .nav-link:hover,
+    .vip-button:hover {
+        outline: 2px solid currentColor;
+        outline-offset: 2px;
+    }
+}
+
+/* Basic Resets & Defaults */
+:root {
+    font-size: 15px;
+
+    /* Light Mode Colors */
+    --background-color: #f4f4f8;
+    --text-color: #333;
+    --logo-color: #5a4bff; /* Example purple */
+    --button-bg: #5a4bff;
+    --button-text: #fff;
+    --input-border: #ccc;
+    --input-bg: #fff;
+    
+
+    /* Dark Mode Colors */
+    --dark-background-color: #1a1a2e;
+    --dark-text-color: #e0e0e0;
+    --dark-logo-color: #5a4bff; /* Lighter purple for dark mode */
+    --dark-button-bg: #5a4bff;
+    --dark-button-text: #1a1a2e;
+    --dark-input-border: #555;
+    --dark-input-bg: #2a2a4e;
+    
+    /* Layout dimensions */
+    --navbar-height: 4.5rem;
+}
+
+body {
+    margin: 0;
+    font-family: "Manrope", sans-serif;
+    font-weight: 400;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: var(--dark-background-color);
+    color: var(--dark-text-color);
+}
+
+body.dark-mode .logo {
+    color: var(--dark-logo-color);
+}
+
+/* Header & Navigation Styling */
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--navbar-height);
+    background-color: rgba(244, 244, 248, 0.7); /* Semi-transparent light background */
+    backdrop-filter: blur(10px); /* Blur effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    /*border-bottom: 1px solid rgba(0, 0, 0, 0.1);*/
+    transition: background-color 0.3s ease;
+}
+
+body.dark-mode header {
+    background-color: rgba(26, 26, 46, 0.7); /* Semi-transparent dark background */
+    /*border-bottom: 1px solid rgba(255, 255, 255, 0.1);*/
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    padding: 0 3rem;
+    max-width: 100%;
+    margin: 0 auto;
+    position: relative;
+    height: 100%;
+}
+
+.navbar .logo-container {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.nav-menu-wrapper {
+    display: contents;
+}
+
+.nav-menu {
+    flex: 0 0 auto;
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .nav-link {
@@ -124,6 +758,32 @@ body.dark-mode .nav-link {
     .nav-link {
         font-size: 0.9rem;
     }
+    
+    .nav-vip-button {
+        transform: translateX(12px) scale(0.95);
+    }
+    
+    .nav-vip-button.visible {
+        transform: translateX(0) scale(1);
+    }
+
+    /* Top section responsive adjustments */
+    .top-section {
+        padding: 1.5rem;
+    }
+    
+    .heading-container {
+        font-size: 1.7em;
+    }
+    
+    .vip-button-container {
+        margin-top: 1.5rem;
+    }
+    
+    .vip-button {
+        padding: 0.9rem 1.8rem;
+        font-size: 1rem;
+    }
 }
 
 /* Very small screens */
@@ -139,6 +799,72 @@ body.dark-mode .nav-link {
     .nav-link {
         font-size: 0.8rem;
         padding: 0.25rem 0.5rem;
+    }
+    
+    .nav-vip-button {
+        transform: translateX(8px) scale(0.95);
+    }
+    
+    .nav-vip-button.visible {
+        transform: translateX(0) scale(1);
+    }
+
+    /* Top section responsive adjustments for very small screens */
+    .top-section {
+        padding: 1rem;
+    }
+    
+    .heading-container {
+        font-size: 1.4em;
+    }
+    
+    .heading-container h1 {
+        line-height: 1.1;
+    }
+    
+    .heading-container p {
+        font-size: 0.55em;
+        margin-top: 0.75rem;
+        margin-bottom: 0.75rem;
+    }
+    
+    .vip-button-container {
+        margin-top: 1rem;
+    }
+    
+    .vip-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+/* Extra small screens */
+@media (max-width: 320px) {
+    .top-section {
+        padding: 0.75rem;
+    }
+    
+    .heading-container {
+        font-size: 1.2em;
+    }
+    
+    .heading-container h1 {
+        line-height: 1.05;
+    }
+    
+    .heading-container p {
+        font-size: 0.6em;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
+    }
+    
+    .vip-button-container {
+        margin-top: 0.75rem;
+    }
+    
+    .vip-button {
+        padding: 0.75rem 1.25rem;
+        font-size: 0.9rem;
     }
 }
 
@@ -486,6 +1212,27 @@ body.dark-mode .logo-dark {
         font-size: 1.3rem;
     }
     
+    /* Top section responsive adjustments for medium screens */
+    .top-section {
+        padding: 1.25rem;
+    }
+    
+    .heading-container {
+        font-size: 1.5em;
+    }
+    
+    .heading-container p {
+        font-size: 0.52em;
+    }
+    
+    .vip-button-container {
+        margin-top: 1.25rem;
+    }
+    
+    .vip-button {
+        padding: 0.85rem 1.65rem;
+        font-size: 0.98rem;
+    }
 }
 
 /* Info Card */
@@ -495,7 +1242,8 @@ body.dark-mode .logo-dark {
     padding: 1rem 1.5rem 1rem 1.5rem;
     display: flex;
     flex-direction: column;
-    width: 800px;
+    width: 100%;
+    max-width: clamp(280px, 90vw, 800px);
     box-sizing: border-box;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     margin-bottom: 1.5rem; /* Space below card */
@@ -691,7 +1439,8 @@ body.dark-mode .info-photo-dark {
 }
 
 .waitlist-input, .waitlist-button {
-    width: 250px; /* Fixed width, independent of parent width */
+    width: 100%;
+    max-width: 250px; /* Fixed width, independent of parent width */
 }
 
 .waitlist-input {
@@ -748,134 +1497,230 @@ body.dark-mode .waitlist-title {
     }
 }
 
-/* Row holding info & waitlist cards - Now positioned outside main content */
+/* Improved cards-row layout with better responsiveness */
 .cards-row {
     display: flex;
-    gap: 1rem;
+    gap: clamp(0.75rem, 2vw, 1.5rem);
     flex-wrap: wrap;
     justify-content: center;
-    width: 870px;
-    margin: 2rem auto;
-    padding: 0 1rem;
+    width: 100%;
+    max-width: clamp(320px, 95vw, 1022px);
+    margin: clamp(1rem, 3vw, 2rem) auto;
+    padding: 0 clamp(0.75rem, 2vw, 1rem);
     box-sizing: border-box;
     position: relative;
     z-index: 10;
+    padding-bottom: clamp(0.75rem, 2vw, 1rem);
 }
 
 .cards-row > .info-card {
-    flex: 1 1 0;
+    flex: 1 1 clamp(280px, 45vw, 500px);
     min-width: 280px;
+    max-width: 500px;
 }
 
 .waitlist-card {
-    width: 280px;
+    flex: 0 0 clamp(280px, 90vw, 400px);
+    width: clamp(280px, 90vw, 400px);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 }
 
+/* Better responsive stacking */
 @media (max-width: 900px) {
-    /* if screen too small, stacking already handled by wrap but ensure full width */
     .cards-row {
         flex-direction: column;
         align-items: center;
         width: 100%;
+        gap: clamp(1rem, 3vw, 1.5rem);
     }
+    
+    .cards-row > .info-card {
+        flex: none;
+        width: 100%;
+        max-width: 500px;
+    }
+    
     .waitlist-card {
         width: 100%;
-        aspect-ratio: auto;
+        max-width: 400px;
+        flex: none;
     }
 }
-/* Small screens: Allow partial profile slider to be visible */
+
+/* Mobile-first improvements for very small screens */
+@media (max-width: 480px) {
+    .cards-row {
+        margin: 1rem auto;
+        padding: 0 0.5rem;
+        gap: 1rem;
+    }
+    
+    .cards-row > .info-card,
+    .waitlist-card {
+        width: 100%;
+        margin: 0;
+    }
+}
+/* Improved small height screens handling */
 @media (max-height: 600px) {
     .top-section {
-        height: calc(55vh - 2.5rem);
+        height: clamp(250px, 55vh - 2.5rem, 400px);
+        padding: 1.25rem;
     }
     
     .bottom-section {
-        height: calc(45vh - 2rem);
+        height: clamp(300px, 45vh - 2rem, 450px);
     }
     
     .profile-card {
-        height: calc(45vh - 5rem);
-        width: calc((45vh - 5rem) * 0.7);
+        height: clamp(280px, 45vh - 5rem, 380px);
+        width: clamp(196px, calc((45vh - 5rem) * 0.7), 266px);
+    }
+    
+    .heading-container {
+        font-size: clamp(1.2rem, 4.5vw + .5rem, 2.4rem);
+    }
+    
+    .vip-button-container {
+        margin-top: 1.25rem;
+    }
+    
+    .vip-button {
+        padding: 0.85rem 1.65rem;
+        font-size: 0.98rem;
     }
     
     .how-it-works-section {
-        height: 80vh;
+        height: clamp(500px, 80vh, 800px);
         padding: 1rem;
     }
-
-    
 
     .how-it-works-container {
         font-size: 1.5em;
     }
     
     .intro-image {
-        max-height: 40vh;
+        max-height: clamp(300px, 40vh, 500px);
     }
     
     .message-image-container {
-        max-height: 40vh;
+        max-height: clamp(300px, 40vh, 500px);
     }
     
     .message-image {
-        max-height: 40vh;
+        max-height: clamp(300px, 40vh, 500px);
     }
 }
 
-/* Very small screens: Stack layout */
+/* Very small screens: Improved layout with better fallbacks */
 @media (max-height: 480px) {
     main {
         height: auto;
+        min-height: 100vh;
     }
     
     .content-container {
         height: auto;
+        min-height: calc(100vh - var(--navbar-height));
     }
     
     .top-section {
         height: auto;
-        min-height: calc(60vh - 2.7rem); /* Account for navbar height */
-        padding: 1rem;
+        min-height: clamp(200px, 60vh - 2.7rem, 350px);
+        padding: 0.75rem;
     }
     
     .bottom-section {
-        height: calc(40vh - 1.8rem); /* Account for navbar height */
-        min-height: 300px;
+        height: clamp(250px, 40vh - 1.8rem, 400px);
+        min-height: 250px;
     }
     
     .profile-card {
-        height: calc(40vh - 4.8rem); /* Account for navbar + padding + margins */
-        width: calc((40vh - 4.8rem) * 0.7);
-        min-height: 250px;
-        min-width: 175px;
+        height: clamp(220px, 40vh - 4.8rem, 320px);
+        width: clamp(154px, calc((40vh - 4.8rem) * 0.7), 224px);
+        min-height: 220px;
+        min-width: 154px;
+    }
+    
+    .heading-container {
+        font-size: clamp(1.1em, 3vw + 0.8em, 1.5em);
+    }
+    
+    .heading-container h1 {
+        line-height: 1.1;
+    }
+    
+    .heading-container p {
+        font-size: clamp(0.8rem, 2vw + 0.4rem, 1.1rem);
+        margin-top: 0.5rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .vip-button-container {
+        margin-top: 0.75rem;
+    }
+    
+    .vip-button {
+        padding: 0.7rem 1.3rem;
+        font-size: clamp(0.85rem, 2vw + 0.5rem, 1rem);
     }
     
     .how-it-works-section {
         height: auto;
-        min-height: 70vh;
+        min-height: clamp(400px, 70vh, 600px);
         padding: 1rem;
     }
     
     .how-it-works-container {
-        font-size: 1.3em;
+        font-size: clamp(1.1em, 3vw + 0.8em, 1.5em);
     }
     
     .intro-image {
-        max-height: 35vh;
+        max-height: clamp(250px, 35vh, 400px);
         max-width: 95%;
     }
     
     .message-image-container {
-        max-height: 35vh;
+        max-height: clamp(250px, 35vh, 400px);
         max-width: 95%;
     }
     
     .message-image {
-        max-height: 35vh;
+        max-height: clamp(250px, 35vh, 400px);
+    }
+}
+
+/* Extra small vertical screens */
+@media (max-height: 400px) {
+    .top-section {
+        padding: 0.5rem;
+        min-height: calc(65vh - 2.7rem);
+    }
+    
+    .heading-container {
+        font-size: 1.1em;
+    }
+    
+    .heading-container h1 {
+        line-height: 1.05;
+    }
+    
+    .heading-container p {
+        font-size: 0.6em;
+        margin-top: 0.25rem;
+        margin-bottom: 0.25rem;
+    }
+    
+    .vip-button-container {
+        margin-top: 0.5rem;
+    }
+    
+    .vip-button {
+        padding: 0.6rem 1.1rem;
+        font-size: 0.85rem;
     }
 }
 
@@ -887,6 +1732,7 @@ body.dark-mode .waitlist-title {
 
     .top-section {
         height: calc(45vh - 2rem); /* Maintain consistency */
+        padding: 2.5rem;
     }
     
     .bottom-section {
@@ -903,6 +1749,19 @@ body.dark-mode .waitlist-title {
 
     .cards-row {
         width: 1022px;
+    }
+    
+    .heading-container {
+        font-size: 2.2em;
+    }
+    
+    .vip-button-container {
+        margin-top: 2.5rem;
+    }
+    
+    .vip-button {
+        padding: 1.1rem 2.2rem;
+        font-size: 1.15em;
     }
     
     .how-it-works-container {
@@ -932,6 +1791,7 @@ body.dark-mode .waitlist-title {
 @media (min-height: 1200px) {
     .top-section {
         height: calc(45vh - 2rem); /* Maintain consistency */
+        padding: 3rem;
     }
     
     .bottom-section {
@@ -941,6 +1801,51 @@ body.dark-mode .waitlist-title {
     .profile-card {
         height: 600px;
         width: 420px;
+    }
+    
+    .heading-container {
+        font-size: 2.4em;
+    }
+    
+    .vip-button-container {
+        margin-top: 3rem;
+    }
+    
+    .vip-button {
+        padding: 1.2rem 2.4rem;
+        font-size: 1.2em;
+    }
+}
+
+/* Large desktop screens */
+@media (min-width: 1024px) and (max-height: 899px) {
+    .top-section {
+        padding: 2.25rem;
+    }
+    
+    .heading-container {
+        font-size: 2.1em;
+    }
+    
+    .vip-button-container {
+        margin-top: 2.25rem;
+    }
+    
+    .vip-button {
+        padding: 1.05rem 2.1rem;
+        font-size: 1.1em;
+    }
+}
+
+/* Ultra-wide screens */
+@media (min-width: 1440px) {
+    .top-section {
+        padding: 2.75rem 4rem;
+    }
+    
+    .heading-container {
+        font-size: 2.3em;
+        max-width: 900px;
     }
 } 
 
@@ -1159,21 +2064,20 @@ body.dark-mode .toggle-icon-dark {
 
 /* Nav bar VIP button that appears when the main VIP button is not visible */
 .nav-vip-button {
-    position: absolute;
-    right: 3rem;
-    top: 50%;
-    transform: translateY(-50%) translateX(16px) scale(0.95);
-    margin-left: 0.75rem;
-    padding: 0;            /* container itself has no padding */
+    flex: 1 1 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease, transform 0.3s ease;
+    transform: translateX(16px) scale(0.95);
 }
-
 
 .nav-vip-button.visible {
     opacity: 1;
-    transform: translateY(-50%) translateX(0) scale(1);
+    transform: translateX(0) scale(1);
     pointer-events: auto;
 }
 
@@ -1195,9 +2099,14 @@ body.dark-mode .toggle-icon-dark {
         padding: 0 1rem;
         font-size: 0.9em;
     }
-    /* Remove legacy padding that used to be on the container */
-    .nav-vip-button {
-        padding: 0;
+}
+
+/* Extra small screens */
+@media (max-width: 480px) {
+    .nav-vip-button .vip-button {
+        height: 2rem;
+        padding: 0 0.75rem;
+        font-size: 0.8rem;
     }
 }
 
@@ -1321,7 +2230,8 @@ body.dark-mode .socials-section {
 
 /* Two images - constrained height with cropping */
 .info-images:has(.info-image:first-child:nth-last-child(2)) {
-    height: 500px;
+    height: auto;
+    aspect-ratio: 2 / 1;   /* or 3/2 – pick what fits your images */
 }
 
 .info-images:has(.info-image:first-child:nth-last-child(2)) .info-image {
