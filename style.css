@@ -343,7 +343,7 @@ body.dark-mode .nav-link {
     border: none;
     background: transparent;
     cursor: pointer;
-    padding: 10px 1rem 10px 10px;
+    padding: 10px 1.5rem 10px 10px;
     z-index: 101; /* Above navbar content */
 }
 
