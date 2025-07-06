@@ -2504,3 +2504,9 @@ body.dark-mode .site-footer {
 html {
     scroll-behavior: smooth; /* Enable smooth scrolling for anchor links */
 }
+
+/* Safari Flexbox Alignment Fix */
+.nav-menu > .nav-link,
+.nav-menu > .dark-mode-toggle {
+    align-self: center;
+}
