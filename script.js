@@ -2,12 +2,33 @@ document.addEventListener('DOMContentLoaded', () => {
     // Hamburger Menu Logic
     const hamburgerMenu = document.getElementById('hamburgerMenu');
     const navMenuWrapper = document.getElementById('navMenuWrapper');
+    // Store original parent to restore later
+    const navMenuOriginalParent = navMenuWrapper ? navMenuWrapper.parentElement : null;
     const navLinks = document.querySelectorAll('.nav-link');
 
     if (hamburgerMenu && navMenuWrapper) {
+        const updateNavMenuPlacement = () => {
+            const isOpen = document.body.classList.contains('menu-open');
+            if (isOpen) {
+                // Move to <body> so backdrop-filter works
+                if (navMenuWrapper.parentElement !== document.body) {
+                    document.body.appendChild(navMenuWrapper);
+                }
+            } else if (navMenuOriginalParent) {
+                // Restore to original parent when closed
+                if (navMenuWrapper.parentElement !== navMenuOriginalParent) {
+                    navMenuOriginalParent.appendChild(navMenuWrapper);
+                }
+            }
+        };
+
         hamburgerMenu.addEventListener('click', () => {
             document.body.classList.toggle('menu-open');
+            updateNavMenuPlacement();
         });
+
+        // Initial placement in case page loads with menu-open class
+        updateNavMenuPlacement();
     }
 
     // Close menu when a nav link is clicked (for single-page anchors)
@@ -15,6 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', () => {
             if (document.body.classList.contains('menu-open')) {
                 document.body.classList.remove('menu-open');
+                // Ensure nav is moved back after closing via link click
+                if (navMenuOriginalParent && navMenuWrapper.parentElement !== navMenuOriginalParent) {
+                    navMenuOriginalParent.appendChild(navMenuWrapper);
+                }
             }
         });
     });

@@ -417,7 +417,7 @@ body.dark-mode .hamburger-inner::after {
 
     .nav-menu-wrapper {
         display: none !important; /* Hide nav content by default, override contents */
-        position: absolute;
+        position: fixed;
         top: var(--navbar-height);
         left: 0;
         right: 0;
@@ -427,15 +427,13 @@ body.dark-mode .hamburger-inner::after {
         padding: 1rem;
         flex-direction: column;
         align-items: center;
-        gap: 1rem;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        gap: 1rem;                
         z-index: 100;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
     
     body.dark-mode .nav-menu-wrapper {
         background-color: rgba(26, 26, 46, 0.7); /* Semi-transparent dark background */
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
     }
     
@@ -2167,10 +2165,52 @@ body.dark-mode .faq-item {
     display: none;
 }
 
+/* Custom arrow for FAQ questions */
+.faq-item summary::after {
+    content: "▼"; /* Downward arrow */
+    float: right; /* Align to the right */
+    font-size: 0.9rem;
+    transition: transform 0.25s ease;
+}
+
+/* Rotate arrow when the FAQ item is open */
+.faq-item[open] summary::after {
+    transform: rotate(180deg); /* Points arrow upward */
+}
+
 .faq-answer {
     padding: 0 1.25rem 1.25rem 1.25rem;
     font-size: 1rem;
     line-height: 1.5;
+}
+
+/* ------------------------------------------------------------------ */
+/* ------------------------------------------------------------------ */
+/* FAQ Links                                                          */
+/* ------------------------------------------------------------------ */
+
+.faq-link {
+    color: var(--logo-color);
+    text-decoration: underline;
+    font-weight: 500;
+    transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.faq-link:hover,
+.faq-link:focus {
+    opacity: 0.8;
+}
+
+.faq-link:visited {
+    color: #4838d6; /* Slightly muted version for visited links */
+}
+
+body.dark-mode .faq-link {
+    color: var(--dark-logo-color);
+}
+
+body.dark-mode .faq-link:visited {
+    color: #8a7cff;
 }
 
 /* ------------------------------------------------------------------ */
@@ -2446,6 +2486,19 @@ body.dark-mode .info-image {
         width: 20px;
         height: 20px;
     }
+}
+
+/* Footer */
+.site-footer {
+    text-align: center;
+    padding: 1rem 2rem;
+    font-size: 0.85rem;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+body.dark-mode .site-footer {
+    color: var(--dark-text-color);
 }
 
 html {
