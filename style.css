@@ -1016,20 +1016,24 @@ body.dark-mode .intro-image {
 /* Light Mode - Show light image, hide dark image */
 .message-image-light {
     opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .message-image-dark {
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 /* Dark Mode - Hide light image, show dark image */
 body.dark-mode .message-image-light {
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 body.dark-mode .message-image-dark {
     opacity: 1;
     box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+    transition: opacity 0.3s ease;
 }
 
 /* Intro Image Container for Crossfade */
@@ -1056,20 +1060,24 @@ body.dark-mode .message-image-dark {
 /* Light Mode - Show light image, hide dark image */
 .intro-image-light {
     opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .intro-image-dark {
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 /* Dark Mode - Hide light image, show dark image */
 body.dark-mode .intro-image-light {
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 body.dark-mode .intro-image-dark {
     opacity: 1;
     box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+    transition: opacity 0.3s ease;
 }
 
 /* Match Image Container for Crossfade */
@@ -1096,20 +1104,24 @@ body.dark-mode .intro-image-dark {
 /* Light Mode - Show light image, hide dark image */
 .match-image-light {
     opacity: 1;
+    transition: opacity 0.3s ease;
 }
 
 .match-image-dark {
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 /* Dark Mode - Hide light image, show dark image */
 body.dark-mode .match-image-light {
     opacity: 0;
+    transition: opacity 0.3s ease;
 }
 
 body.dark-mode .match-image-dark {
     opacity: 1;
     box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+    transition: opacity 0.3s ease;
 }
 
 /* Profile Slider - Updated for new layout */
@@ -2446,27 +2458,30 @@ body.dark-mode .socials-section {
     }
 }
 
+#match-image-container {
+    max-height: 400px !important;
+}
 
 .intro-image-container:hover {
-    opacity: 0.75 !important;
+    opacity: 0.9 !important;
 }
 
 .match-image-container:hover {
-    opacity: 0.75 !important;
+    opacity: 0.9 !important;
 }
 
 .message-image-container:hover {
-    opacity: 0.75 !important;
+    opacity: 0.9 !important;
 }
 
 #aikai-office-image:hover {
-    opacity: 0.75 !important;
+    opacity: 0.9 !important;
 }
 
 /* Hover effect for clickable images */
-.info-image:hover {
-    /*opacity: 0.75 !important;*/
-}
+/* .info-image:hover {
+    opacity: 0.75 !important;
+} */
 
 /* Dark mode shadow adjustment */
 body.dark-mode .info-image {
