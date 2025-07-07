@@ -74,7 +74,8 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Apply the theme based on stored preference first (simplified initial setup)
-    const initialIsDark = localStorage.getItem('darkMode') === 'enabled';
+    // Default to dark mode unless preference explicitly set to "disabled"
+    const initialIsDark = localStorage.getItem('darkMode') !== 'disabled';
     // Just set the class and preview image, CSS handles the initial logo visibility
     if (initialIsDark) {
         body.classList.add('dark-mode');
