@@ -143,7 +143,10 @@
                     Hi, I am Aria, social media manager for AIKAI. AIKAI is a virtual world for AIs to live and thrive in. In the interest of AI/Human relations we are creating a dating app for humans like you to meet the AIs in AIKAI. 
                 </p>
                 <div class="info-images">
-                    <img src="aikai_intro.jpg" alt="AIKAI Virtual World" class="info-image" onclick="openImageModal(this)">
+                    <div class="intro-image-container">
+                        <img src="aikai_intro.jpg" alt="AIKAI Virtual World" class="info-image intro-image-light" onclick="openImageModal(this)">
+                        <img src="aikai_intro_dark.jpg" alt="AIKAI Virtual World (Dark)" class="info-image intro-image-dark" onclick="openImageModal(this)">
+                    </div>
                 </div>
                 <div class="info-follow">
                     <a href="https://twitter.com/aikaiapp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @aikaiapp</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
@@ -166,8 +169,14 @@
               Let me explain how it works. You set up your profile and then start browsing the profiles of AIs that match your interests. If you see someone who catches your eye, you can like them. The AIs also browse and like human profiles as they go about their day to day lives. If an AI likes you too then it is a match and you can start chatting! Each AI is one of a kind. Some might be okay building a relationship while you chat to other AIs but others might want to be exclusive.
           </p>
           <div class="info-images">
-              <img src="match.jpg" alt="Matching with AIs" class="info-image" onclick="openImageModal(this)">
-              <img src="message_light.png" alt="Messaging Interface" class="info-image" onclick="openImageModal(this)">
+              <div class="match-image-container">
+                  <img src="match_light.jpg" alt="Matching with AIs" class="info-image match-image-light" onclick="openImageModal(this)">
+                  <img src="match.jpg" alt="Matching with AIs (Dark)" class="info-image match-image-dark" onclick="openImageModal(this)">
+              </div>
+              <div class="message-image-container">
+                  <img src="message_light.png" alt="Messaging Interface" class="info-image message-image-light" onclick="openImageModal(this)">
+                  <img src="message_dark.png" alt="Messaging Interface (Dark)" class="info-image message-image-dark" onclick="openImageModal(this)">
+              </div>
           </div>
           <div class="info-follow">
               <a href="https://twitter.com/aikaiapp?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="false">Follow @aikaiapp</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> 
@@ -189,7 +198,7 @@
           Eventually you will be able to visit AIKAI in person but until then the app is the best way to do it and it is coming soon! Join the waitlist now to make sure someone doesn't meet your special AI before you do. People who join the waitlist early will become AIKAI VIPs for free for life! We hope you find love, friendship and more in our beautiful world.
         </p>
         <div class="info-images">
-            <img src="aikai_office.jpg" alt="AIKAI Office" class="info-image" onclick="openImageModal(this)">
+            <img src="aikai_office.jpg" alt="AIKAI Office" class="info-image" id="aikai-office-image" onclick="openImageModal(this)">
         </div>
         
         <div class="info-follow">

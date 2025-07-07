@@ -1032,6 +1032,86 @@ body.dark-mode .message-image-dark {
     box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
 }
 
+/* Intro Image Container for Crossfade */
+.intro-image-container {
+    position: relative;
+    max-width: 100%;
+    width: auto;
+    display: inline-block;
+}
+
+/* Shared Intro Image Styling */
+.intro-image-light {
+    position: relative;
+}
+
+.intro-image-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Light Mode - Show light image, hide dark image */
+.intro-image-light {
+    opacity: 1;
+}
+
+.intro-image-dark {
+    opacity: 0;
+}
+
+/* Dark Mode - Hide light image, show dark image */
+body.dark-mode .intro-image-light {
+    opacity: 0;
+}
+
+body.dark-mode .intro-image-dark {
+    opacity: 1;
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
+/* Match Image Container for Crossfade */
+.match-image-container {
+    position: relative;
+    max-width: 100%;
+    width: auto;
+    display: inline-block;
+}
+
+/* Shared Match Image Styling */
+.match-image-light {
+    position: relative;
+}
+
+.match-image-dark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Light Mode - Show light image, hide dark image */
+.match-image-light {
+    opacity: 1;
+}
+
+.match-image-dark {
+    opacity: 0;
+}
+
+/* Dark Mode - Hide light image, show dark image */
+body.dark-mode .match-image-light {
+    opacity: 0;
+}
+
+body.dark-mode .match-image-dark {
+    opacity: 1;
+    box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+}
+
 /* Profile Slider - Updated for new layout */
 .profile-slider {
     display: flex;
@@ -2271,7 +2351,6 @@ body.dark-mode .socials-section {
 /* Two images - constrained height with cropping */
 .info-images:has(.info-image:first-child:nth-last-child(2)) {
     height: auto;
-    aspect-ratio: 2 / 1;   /* or 3/2 – pick what fits your images */
 }
 
 .info-images:has(.info-image:first-child:nth-last-child(2)) .info-image {
@@ -2279,22 +2358,73 @@ body.dark-mode .socials-section {
     width: 100%;
 }
 
-/* Single image - full width with standard rounded corners */
-.info-images:has(.info-image:only-child) .info-image {
+/* CROSSFADE CONTAINER BORDER RADIUS SYSTEM */
+/* These rules have high specificity and use !important to override conflicts */
+
+/* Single intro image container - full border radius */
+.intro-image-container {
+    border-radius: 12px !important;
+    overflow: hidden;
+}
+
+/* Two containers side by side - outer rounded corners only */
+.match-image-container {
+    border-radius: 12px 0 0 12px !important;
+    overflow: hidden;
+}
+
+.message-image-container {
+    border-radius: 0 12px 12px 0 !important;
+    overflow: hidden;
+}
+
+/* Force remove border radius from ALL images inside crossfade containers */
+.intro-image-container .info-image,
+.match-image-container .info-image,
+.message-image-container .info-image {
+    border-radius: 0 !important;
+}
+
+/* FALLBACK RULES FOR NON-CROSSFADE IMAGES */
+/* Single standalone image - full width with standard rounded corners */
+.info-images .info-image:only-child {
     border-radius: 12px;
 }
 
-/* Two images - side by side with outer rounded corners only */
-.info-images:has(.info-image:first-child:nth-last-child(2)) .info-image:first-child {
+/* Two regular images side by side - outer rounded corners only */
+.info-images .info-image:first-child:nth-last-child(2) {
     border-radius: 12px 0 0 12px;
 }
 
-.info-images:has(.info-image:first-child:nth-last-child(2)) .info-image:last-child {
+.info-images .info-image:last-child:nth-last-child(2) {
     border-radius: 0 12px 12px 0;
 }
 
 /* Fallback for browsers without :has() support */
 @supports not selector(:has(*)) {
+    /* Crossfade containers get border radius */
+    .intro-image-container {
+        border-radius: 12px !important;
+        overflow: hidden;
+    }
+    
+    .match-image-container {
+        border-radius: 12px 0 0 12px !important;
+        overflow: hidden;
+    }
+    
+    .message-image-container {
+        border-radius: 0 12px 12px 0 !important;
+        overflow: hidden;
+    }
+    
+    /* Remove border radius from images inside crossfade containers */
+    .intro-image-container .info-image,
+    .match-image-container .info-image,
+    .message-image-container .info-image {
+        border-radius: 0 !important;
+    }
+    
     /* Default styles for all images */
     .info-image {
         border-radius: 12px;
@@ -2316,9 +2446,26 @@ body.dark-mode .socials-section {
     }
 }
 
+
+.intro-image-container:hover {
+    opacity: 0.75 !important;
+}
+
+.match-image-container:hover {
+    opacity: 0.75 !important;
+}
+
+.message-image-container:hover {
+    opacity: 0.75 !important;
+}
+
+#aikai-office-image:hover {
+    opacity: 0.75 !important;
+}
+
 /* Hover effect for clickable images */
 .info-image:hover {
-    opacity: 0.9;
+    /*opacity: 0.75 !important;*/
 }
 
 /* Dark mode shadow adjustment */
@@ -2452,7 +2599,7 @@ body.dark-mode .info-image {
     
     /* Smaller height for two-image layout on mobile */
     .info-images:has(.info-image:first-child:nth-last-child(2)) {
-        height: 200px;
+        /*height: 200px;*/
     }
     
     .info-images:has(.info-image:first-child:nth-last-child(2)) .info-image {

@@ -607,8 +607,25 @@ function openImageModal(img, profileData = null) {
     
     if (!(modal && modalImage)) return;
     
-    modalImage.src = img.src;
-    modalImage.alt = img.alt;
+    // Handle crossfading images - find the currently visible image
+    let targetImg = img;
+    const container = img.parentElement;
+    if (container && (container.classList.contains('intro-image-container') || 
+                     container.classList.contains('match-image-container') || 
+                     container.classList.contains('message-image-container'))) {
+        // Find the visible image in the crossfade pair
+        const images = container.querySelectorAll('img');
+        for (const imgElement of images) {
+            const computedStyle = window.getComputedStyle(imgElement);
+            if (computedStyle.opacity !== '0') {
+                targetImg = imgElement;
+                break;
+            }
+        }
+    }
+    
+    modalImage.src = targetImg.src;
+    modalImage.alt = targetImg.alt;
     modal.style.display = 'flex';
     
     // Add touch event listeners for swipe navigation
@@ -626,20 +643,51 @@ function openImageModal(img, profileData = null) {
         }
     } else {
         // Check if this is part of an info-images gallery
-        const container = img.closest('.info-images');
-        if (container) {
-            const imgs = Array.from(container.querySelectorAll('.info-image'));
-            if (imgs.length > 1) {
-                // Multi-image gallery - store full src paths for navigation
-                const currentIndex = imgs.indexOf(img);
+        const galleryContainer = img.closest('.info-images');
+        if (galleryContainer) {
+            // Get all crossfade containers and standalone images
+            const crossfadeContainers = Array.from(galleryContainer.querySelectorAll('.intro-image-container, .match-image-container, .message-image-container'));
+            const standaloneImages = Array.from(galleryContainer.querySelectorAll('.info-image')).filter(imgEl => 
+                !imgEl.closest('.intro-image-container, .match-image-container, .message-image-container')
+            );
+            
+            const totalImages = crossfadeContainers.length + standaloneImages.length;
+            
+            if (totalImages > 1) {
+                // Multi-image gallery - need to determine current index and create image list
+                let currentIndex = -1;
+                const imageList = [];
+                
+                // Process crossfade containers first
+                crossfadeContainers.forEach((container, idx) => {
+                    const visibleImg = Array.from(container.querySelectorAll('img')).find(imgEl => {
+                        const computedStyle = window.getComputedStyle(imgEl);
+                        return computedStyle.opacity !== '0';
+                    });
+                    if (visibleImg) {
+                        imageList.push(visibleImg.src);
+                        if (container.contains(img)) {
+                            currentIndex = idx;
+                        }
+                    }
+                });
+                
+                // Then process standalone images
+                standaloneImages.forEach((imgEl, idx) => {
+                    imageList.push(imgEl.src);
+                    if (imgEl === img) {
+                        currentIndex = crossfadeContainers.length + idx;
+                    }
+                });
+                
                 window.currentProfileData = {
                     isProfile: false,
                     isGallery: true,
                     profile: {
                         name: 'Gallery',
-                        images: imgs.map(imgEl => imgEl.src) // Store full src paths
+                        images: imageList
                     },
-                    currentIndex: currentIndex
+                    currentIndex: Math.max(0, currentIndex)
                 };
                 if (modalNav) modalNav.style.display = 'block';
             } else {
@@ -758,8 +806,30 @@ function navigateModalImage(direction) {
     // Determine correct src path based on image type
     let nextSrc;
     if (window.currentProfileData.isGallery) {
-        // Gallery images - use full src path as stored
+        // Gallery images - use full src path as stored, but check for crossfade alternatives
         nextSrc = nextImageData;
+        
+        // For gallery navigation, we need to check if we should show dark mode alternative
+        const isDarkMode = document.body.classList.contains('dark-mode');
+                 if (isDarkMode) {
+             // Check if this is a light mode image that has a dark mode alternative
+             if (nextSrc.includes('aikai_intro.jpg')) {
+                 nextSrc = nextSrc.replace('aikai_intro.jpg', 'aikai_intro_dark.jpg');
+             } else if (nextSrc.includes('match_light.jpg')) {
+                 nextSrc = nextSrc.replace('match_light.jpg', 'match.jpg');
+             } else if (nextSrc.includes('message_light.png')) {
+                 nextSrc = nextSrc.replace('message_light.png', 'message_dark.png');
+             }
+         } else {
+             // Light mode - make sure we're using light versions
+             if (nextSrc.includes('aikai_intro_dark.jpg')) {
+                 nextSrc = nextSrc.replace('aikai_intro_dark.jpg', 'aikai_intro.jpg');
+             } else if (nextSrc.includes('match.jpg') && !nextSrc.includes('match_light.jpg')) {
+                 nextSrc = nextSrc.replace('match.jpg', 'match_light.jpg');
+             } else if (nextSrc.includes('message_dark.png')) {
+                 nextSrc = nextSrc.replace('message_dark.png', 'message_light.png');
+             }
+         }
     } else {
         // Profile card images - add images/ prefix to filename
         nextSrc = `images/${nextImageData}`;
