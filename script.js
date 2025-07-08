@@ -158,6 +158,11 @@ document.addEventListener('DOMContentLoaded', () => {
         function createCard(profile) {
             const card = document.createElement('div');
             card.className = 'profile-card';
+            
+            // Make card keyboard accessible
+            card.setAttribute('tabindex', '0');
+            card.setAttribute('role', 'button');
+            card.setAttribute('aria-label', `View ${profile.name}'s profile. Age ${profile.age}. ${profile.details}`);
 
             // Image element (initial)
             const initialImg = document.createElement('img');
@@ -197,8 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
             info.innerHTML = `<h2 class="profile-name">${profile.name}, ${profile.age}</h2><p class="profile-details">${profile.details}</p>`;
             card.appendChild(info);
 
-            // Open modal on click/tap instead of cycling images
-            const clickHandler = () => {
+            // Open modal on click/tap or keyboard activation
+            const activateHandler = () => {
                 // Get the currently visible image element
                 const visibleImg = card.querySelector('.profile-image[style*="opacity: 1"], .profile-image:not([style*="opacity"])');
                 if (visibleImg && visibleImg.src && !visibleImg.src.includes('aikai_profile_card.jpg')) {
@@ -211,7 +216,18 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                 }
             };
-            card.addEventListener('click', clickHandler);
+            
+            // Add click handler
+            card.addEventListener('click', activateHandler);
+            
+            // Add keyboard handler
+            const keyboardHandler = (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    activateHandler();
+                }
+            };
+            card.addEventListener('keydown', keyboardHandler);
 
             let timerId = null;
             const firstDelay = 1000 + Math.floor((Math.random() * 3) + 1) * 1000; // 1-4s
@@ -289,7 +305,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
             function cleanup() {
                 stop(); // Clear any running timers
-                card.removeEventListener('click', clickHandler);
+                card.removeEventListener('click', activateHandler);
+                card.removeEventListener('keydown', keyboardHandler);
                 // Clean up image preloading handlers
                 actualImg.onload = null;
                 actualImg.onerror = null;
@@ -598,6 +615,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Enhanced modal functionality with touch support
 let modalTouchStartX = 0;
 let modalTouchEndX = 0;
+let modalPreviousFocus = null; // Store the previously focused element
 
 // Image Modal Functions (defined globally)
 function openImageModal(img, profileData = null) {
@@ -700,11 +718,20 @@ function openImageModal(img, profileData = null) {
         }
     }
     
-    // Add keyboard support
+    // Store currently focused element and set focus to modal
+    modalPreviousFocus = document.activeElement;
+    
+    // Add keyboard support and focus trapping
     document.addEventListener('keydown', handleModalKeydown);
     
     // Add background click to close
     modal.addEventListener('click', handleModalBackgroundClick);
+    
+    // Set focus to close button for keyboard users
+    const closeButton = modal.querySelector('.modal-close');
+    if (closeButton) {
+        closeButton.focus();
+    }
     
     // Prevent body scroll
     document.body.style.overflow = 'hidden';
@@ -721,6 +748,12 @@ function closeImageModal() {
     
     modal.style.display = 'none';
     window.currentProfileData = null;
+    
+    // Restore focus to previously focused element
+    if (modalPreviousFocus && modalPreviousFocus.focus) {
+        modalPreviousFocus.focus();
+    }
+    modalPreviousFocus = null;
     
     // Restore body scroll
     document.body.style.overflow = '';
@@ -751,9 +784,34 @@ function handleSwipeGesture() {
 }
 
 function handleModalKeydown(event) {
+    const modal = document.getElementById('imageModal');
+    
     if (event.key === 'Escape') {
         closeImageModal();
         return;
+    }
+    
+    // Focus trapping
+    if (event.key === 'Tab') {
+        const focusableElements = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        const firstElement = focusableElements[0];
+        const lastElement = focusableElements[focusableElements.length - 1];
+        
+        if (event.shiftKey) {
+            // Shift + Tab (backwards)
+            if (document.activeElement === firstElement) {
+                event.preventDefault();
+                lastElement.focus();
+            }
+        } else {
+            // Tab (forwards)
+            if (document.activeElement === lastElement) {
+                event.preventDefault();
+                firstElement.focus();
+            }
+        }
     }
 
     if (!window.currentProfileData || !window.currentProfileData.profile) return;

@@ -193,6 +193,98 @@ main {
 }
 
 /* Accessibility improvements */
+/* Screen reader only content */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Focus indicators for accessibility */
+.nav-link:focus,
+.vip-button:focus,
+.dark-mode-toggle:focus,
+.hamburger-menu:focus,
+.modal-close:focus,
+.modal-arrow:focus,
+.profile-card:focus,
+.faq-item summary:focus {
+    outline: 3px solid #0066cc !important;
+    outline-offset: 2px !important;
+}
+
+/* Dark mode focus indicators */
+body.dark-mode .nav-link:focus,
+body.dark-mode .vip-button:focus,
+body.dark-mode .dark-mode-toggle:focus,
+body.dark-mode .hamburger-menu:focus,
+body.dark-mode .modal-close:focus,
+body.dark-mode .modal-arrow:focus,
+body.dark-mode .profile-card:focus,
+body.dark-mode .faq-item summary:focus {
+    outline-color: #66b3ff !important;
+}
+
+/* High contrast focus for better visibility */
+@media (prefers-contrast: high) {
+    .nav-link:focus,
+    .vip-button:focus,
+    .dark-mode-toggle:focus,
+    .hamburger-menu:focus,
+    .modal-close:focus,
+    .modal-arrow:focus,
+    .profile-card:focus,
+    .faq-item summary:focus {
+        outline: 4px solid #000 !important;
+        outline-offset: 2px !important;
+        background-color: #ffff00 !important;
+        color: #000 !important;
+    }
+    
+    body.dark-mode .nav-link:focus,
+    body.dark-mode .vip-button:focus,
+    body.dark-mode .dark-mode-toggle:focus,
+    body.dark-mode .hamburger-menu:focus,
+    body.dark-mode .modal-close:focus,
+    body.dark-mode .modal-arrow:focus,
+    body.dark-mode .profile-card:focus,
+    body.dark-mode .faq-item summary:focus {
+        outline: 4px solid #fff !important;
+        background-color: #000 !important;
+        color: #fff !important;
+    }
+}
+
+/* Skip links */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: #000;
+    color: #fff;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 1000;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+body.dark-mode .skip-link {
+    background: #fff;
+    color: #000;
+}
+
 @media (prefers-reduced-motion: reduce) {
     .profile-image,
     .logo-image,

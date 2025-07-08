@@ -42,7 +42,7 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- Stylesheet -->
-    <link rel="stylesheet" href="minified.css">
+    <link rel="stylesheet" href="style.css">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,6 +53,11 @@
     
 </head>
 <body>
+    <!-- Skip links for keyboard navigation -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <a href="#what-is-it" class="skip-link">Skip to what is AIKAI</a>
+    <a href="#faq" class="skip-link">Skip to FAQ</a>
+    
     <header>
         <nav class="navbar">
             <!-- Logo Container for Cross-Fade -->
@@ -98,7 +103,7 @@
            
         </nav>
     </header>
-    <main>
+    <main id="main-content">
         <div class="content-container">
             <!-- Top Half - Heading and Waitlist Form -->
             <div class="top-section">
@@ -120,7 +125,7 @@
 
             <!-- Bottom Half - Profile Slider -->
             <div class="bottom-section">
-                <div class="profile-slider" id="profileSlider"></div>
+                <div class="profile-slider" id="profileSlider" role="region" aria-label="AI Profile Gallery" aria-live="polite"></div>
             </div>
             <!-- End Bottom Section -->
         </div>
@@ -385,18 +390,20 @@
     </script>
     
     <!-- Image Modal -->
-    <div id="imageModal" class="modal">
+    <div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-description">
         <div class="modal-content">
-            <span class="modal-close" onclick="closeImageModal()">&times;</span>
+            <h2 id="modal-title" class="sr-only">Profile Image Viewer</h2>
+            <p id="modal-description" class="sr-only">Use arrow keys or buttons to navigate between images. Press Escape to close.</p>
+            <button class="modal-close" aria-label="Close image modal" onclick="closeImageModal()">&times;</button>
             <img id="modalImage" src="" alt="">
             <!-- Navigation arrows for profile images -->
             <div class="modal-nav" id="modalNav" style="display: none;">
-                <button class="modal-arrow modal-arrow-left" id="modalPrevBtn" onclick="navigateModalImage(-1)">
+                <button class="modal-arrow modal-arrow-left" id="modalPrevBtn" aria-label="Previous image" onclick="navigateModalImage(-1)">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
                 </button>
-                <button class="modal-arrow modal-arrow-right" id="modalNextBtn" onclick="navigateModalImage(1)">
+                <button class="modal-arrow modal-arrow-right" id="modalNextBtn" aria-label="Next image" onclick="navigateModalImage(1)">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M9 6L15 12L9 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     </svg>
@@ -407,7 +414,7 @@
     <!-- End Image Modal -->
 
     
-    <script src="minified.js"></script>
+    <script src="script.js"></script>
       
       
 </body>

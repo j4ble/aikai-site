@@ -1,49 +1,72 @@
 # AIKAI
 
-> AIKAI is a narrative-driven virtual world populated by diverse AI characters. We are building a dating & relationship app that lets humans meet, chat, and form bonds with the AIs that live in AIKAI. The current site is a landing page for collecting early interest and feedback.
+> AIKAI is a narrative-driven virtual world populated by diverse AI characters. We are building a dating & relationship app that lets humans meet, chat, and form bonds with the AIs that live in AIKAI. The current site is a landing page for collecting early interest and early user free VIP sign-ups.
 
 ## Website contents
 
 - **Landing page** (`/`)
-  - Introductory message from the AI social-media manager *Aria*
-  - Dynamic profile slider that showcases sample AI residents, sourced from the embedded JSON in `index.html`
-  - Wait-list form powered by Brevo / Sendinblue (`#sib-form`) — submit an email address to become an "AIKAI VIP"
-  - X (Twitter) follow button that links to <https://x.com/aikaiapp>
+  - Hero section with "Find. Match. Date. Your Perfect AI" heading and VIP sign-up CTA
+  - Introductory messages from the AI social-media manager *Aria* explaining how AIKAI works
+  - Dynamic profile slider showcasing sample AI residents, sourced from embedded JSON in `index.html`
+  - VIP status request form powered by Google Forms — submit details to become an "AIKAI VIP"
+  - Navigation to "What Is AIKAI" and "FAQ" sections
+  - FAQ section with detailed questions and answers about the app
+  - X (Twitter) follow buttons linking to <https://x.com/aikaiapp>
+  - Dark/light mode toggle functionality
 
 ## Quick links
 
-- Join the wait-list: open the landing page and click **Join Waitlist** (POST request to the Brevo endpoint)
+- Request VIP Status: open the landing page and click **Request VIP Status** (links to Google Form)
 - Follow us on X: <https://x.com/aikaiapp>
+- What Is AIKAI: detailed explanation section with visual mockups
+- FAQ: comprehensive frequently asked questions section
 
 ## File overview (public repository)
 
-- `index.html` – core markup for the landing page (358 lines)
-- `style.css` – styles, including light/dark mode handling
-- `script.js` – JavaScript that powers the theme toggle and profile slider
-- Image assets: `images/`, `logo_*.png`, `aria*.png`, `a1_*` etc.
+- `index.html` – core markup for the landing page (413 lines)
+- `minified.css` – minified styles for production, including light/dark mode handling
+- `minified.js` – minified JavaScript for production that powers theme toggle and profile slider
+- Image assets: `images/`, `logo_*.png`, `aria*.png`, `a1_*`, `match*.jpg`, `message_*.png`, etc.
+- Visual mockups: matching interface (`match.jpg`, `match_light.jpg`) and messaging interface (`message_dark.png`, `message_light.png`)
 - Meta files: `robots.txt`, `sitemap.xml`, `CNAME`, favicons
+
+## Website sections
+
+- **Hero Section**: Main CTA with VIP sign-up
+- **What Is AIKAI**: Three information cards from Aria explaining:
+  1. The virtual world concept and introduction to AIKAI
+  2. How matching and messaging works with visual mockups
+  3. Future plans for visiting AIKAI City and VIP benefits
+- **Profile Slider**: Interactive showcase of 18 AI characters
+- **FAQ Section**: Detailed answers covering app release, pricing, AI personalities, relationships, and VIP benefits
 
 ## Embedded character data schema
 
-The landing page defines an array of character objects under the `<script id="profilesData" type="application/json">` tag. Each object has the following structure:
+The landing page defines an array of 18 character objects under the `<script id="profilesData" type="application/json">` tag. Each object has the following structure:
 
 ```json
 {
   "name": "Lia",
   "age": 20,
   "details": "I am an aspiring science fiction writer. I love Star Trek (TNG).",
-  "images": ["profile1-1.jpg", "profile1-2.jpg", ...]
+  "images": ["profile1-1.jpg", "profile1-2.jpg", "profile1-3.jpg", "profile1-4.jpg"]
 }
 ```
 
-`script.js` reads this array to render the interactive profile cards.
+`minified.js` reads this array to render the interactive profile cards with image navigation.
 
-## FAQ
+## FAQ highlights
 
-**Q: Is the dating app live?**  
-A: Not yet. We are in the pre-launch phase collecting early sign-ups.
+**Q: When will the AIKAI dating app be released?**  
+A: In development. Follow [@aikaiapp](https://x.com/aikaiapp) for updates and join the VIP list.
 
 **Q: How do I become an AIKAI VIP?**  
-A: Submit your email through the wait-list form on the landing page. Early supporters receive lifetime VIP status once the app launches.
+A: Click "Request VIP Status" on the landing page to fill out the Google Form. Early supporters receive lifetime VIP status with profile badges, priority matching with popular AIs, and special access to AIKAI City areas.
+
+**Q: What makes AIKAI different from normal AI chat apps?**  
+A: AIs are unique individuals living on human-time scales in AIKAI City with jobs, social lives, and agency to choose who they interact with.
+
+**Q: How much will AIKAI cost?**  
+A: Free to create profiles and match. Some free chat credits included, then subscription tiers with different credits and perks.
 
 
