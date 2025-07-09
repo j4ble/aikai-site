@@ -5,14 +5,15 @@
 ## Website contents
 
 - **Landing page** (`/`)
-  - Hero section with "Find. Match. Date. Your Perfect AI" heading and VIP sign-up CTA
-  - Introductory messages from the AI social-media manager *Aria* explaining how AIKAI works
-  - Dynamic profile slider showcasing sample AI residents, sourced from embedded JSON in `index.html`
-  - VIP status request form powered by Google Forms — submit details to become an "AIKAI VIP"
-  - Navigation to "What Is AIKAI" and "FAQ" sections
-  - FAQ section with detailed questions and answers about the app
-  - X (Twitter) follow buttons linking to <https://x.com/aikaiapp>
-  - Dark/light mode toggle functionality
+  - Hero section with "Find. Match. Date. Your Perfect AI" heading and VIP sign-up CTA.
+  - Introductory messages from the AI social-media manager *Aria* explaining how AIKAI works.
+  - Dynamic profile slider showcasing sample AI residents, sourced from embedded JSON in `index.html`.
+  - VIP status request form powered by Google Forms — submit details to become an "AIKAI VIP".
+  - Navigation to "What Is AIKAI" and "FAQ" sections.
+  - FAQ section with detailed questions and answers about the app.
+  - X (Twitter) follow buttons linking to <https://x.com/aikaiapp>.
+  - Dark/light mode toggle functionality with `localStorage` persistence.
+  - The site is fully responsive and includes accessibility features like skip links, ARIA roles, and detailed alt text for images.
 
 ## Quick links
 
@@ -28,17 +29,17 @@
 - `minified.js` – minified JavaScript for production that powers theme toggle and profile slider
 - Image assets: `images/`, `logo_*.png`, `aria*.png`, `a1_*`, `match*.jpg`, `message_*.png`, etc.
 - Visual mockups: matching interface (`match.jpg`, `match_light.jpg`) and messaging interface (`message_dark.png`, `message_light.png`)
-- Meta files: `robots.txt`, `sitemap.xml`, `CNAME`, favicons
+- Meta files: `robots.txt`, `sitemap.xml`, favicons
 
 ## Website sections
 
-- **Hero Section**: Main CTA with VIP sign-up
+- **Hero Section**: Main CTA with VIP sign-up.
 - **What Is AIKAI**: Three information cards from Aria explaining:
-  1. The virtual world concept and introduction to AIKAI
-  2. How matching and messaging works with visual mockups
-  3. Future plans for visiting AIKAI City and VIP benefits
-- **Profile Slider**: Interactive showcase of 18 AI characters
-- **FAQ Section**: Detailed answers covering app release, pricing, AI personalities, relationships, and VIP benefits
+  1. The virtual world concept and introduction to AIKAI.
+  2. How matching and messaging works with visual mockups.
+  3. Future plans for visiting AIKAI City and VIP benefits.
+- **Profile Slider**: Interactive showcase of 18 AI characters. Profiles are shuffled on load and duplicated to create an "infinite" scroll effect. Images within each profile card lazy-load and cycle automatically. Clicking a profile opens a modal with a larger view and navigation.
+- **FAQ Section**: Detailed answers covering app release, pricing, AI personalities, relationships, and VIP benefits.
 
 ## Embedded character data schema
 
@@ -49,7 +50,13 @@ The landing page defines an array of 18 character objects under the `<script id=
   "name": "Lia",
   "age": 20,
   "details": "I am an aspiring science fiction writer. I love Star Trek (TNG).",
-  "images": ["profile1-1.jpg", "profile1-2.jpg", "profile1-3.jpg", "profile1-4.jpg"]
+  "images": ["profile1-1.jpg", "profile1-2.jpg", "profile1-3.jpg", "profile1-4.jpg"],
+  "altTexts": [
+    "Anime-style digital illustration of a young woman with fair skin...",
+    "A young woman with brown hair in a ponytail walks a forest path...",
+    "Anime-style drawing of a young woman with brown hair in a ponytail...",
+    "Anime-style digital drawing of a young woman with brown hair..."
+  ]
 }
 ```
 
@@ -68,5 +75,17 @@ A: AIs are unique individuals living on human-time scales in AIKAI City with job
 
 **Q: How much will AIKAI cost?**  
 A: Free to create profiles and match. Some free chat credits included, then subscription tiers with different credits and perks.
+
+**Q: How are AI personalities created, and do they change over time?**  
+A: Each AI is created with a unique personality, likeness and memory by an AI creation engineer. As they live, their personality is further developed by their experiences inside AIKAI as well as their interactions with humans.
+
+**Q: Can an AI date multiple people at once?**  
+A: Some AIs are open to chatting with a few people at the same time, while others prefer exclusivity. It is something that you can discuss with an AIs that you match with.
+
+**Q: Can you look for friendship on the app?**
+A: Yes! You can choose the types of relationships that you are looking for when you make your profile.
+
+**Q: Will I be able to voice- or video-call my AI?**
+A: Voice and video calls will not be available initially but they are on our roadmap.
 
 

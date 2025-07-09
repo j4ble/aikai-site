@@ -206,7 +206,7 @@ main {
     border: 0 !important;
 }
 
-/* Focus indicators for accessibility */
+/* Focus indicators for accessibility 
 .nav-link:focus,
 .vip-button:focus,
 .dark-mode-toggle:focus,
@@ -219,7 +219,7 @@ main {
     outline-offset: 2px !important;
 }
 
-/* Dark mode focus indicators */
+/* Dark mode focus indicators 
 body.dark-mode .nav-link:focus,
 body.dark-mode .vip-button:focus,
 body.dark-mode .dark-mode-toggle:focus,
@@ -229,7 +229,7 @@ body.dark-mode .modal-arrow:focus,
 body.dark-mode .profile-card:focus,
 body.dark-mode .faq-item summary:focus {
     outline-color: #66b3ff !important;
-}
+}*/
 
 /* High contrast focus for better visibility */
 @media (prefers-contrast: high) {
@@ -2614,6 +2614,7 @@ body.dark-mode .info-image {
 }
 
 .modal-close {
+    border: none;
     position: absolute;
     top: 2rem;
     right: 2rem;

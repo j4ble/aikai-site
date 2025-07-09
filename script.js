@@ -167,11 +167,15 @@ document.addEventListener('DOMContentLoaded', () => {
             // Image element (initial)
             const initialImg = document.createElement('img');
             initialImg.className = 'profile-image';
-            initialImg.alt = profile.name;
             initialImg.loading = 'lazy';
             // Pick random start image
             const startIdx = Math.floor(Math.random() * profile.images.length);
             initialImg.dataset.idx = startIdx;
+            
+            // Set appropriate alt text from altTexts array
+            initialImg.alt = profile.altTexts && profile.altTexts[startIdx] 
+                ? profile.altTexts[startIdx] 
+                : profile.name;
             
             // Start with placeholder image
             initialImg.src = 'aikai_profile_card.jpg';
@@ -241,10 +245,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Create a new image element stacked above the current one
                 const newImg = document.createElement('img');
                 newImg.className = 'profile-image';
-                newImg.alt = profile.name;
                 newImg.loading = 'lazy';
                 newImg.dataset.idx = nextIdx;
                 newImg.style.opacity = '0'; // Start transparent for fade-in
+                
+                // Set appropriate alt text from altTexts array
+                newImg.alt = profile.altTexts && profile.altTexts[nextIdx] 
+                    ? profile.altTexts[nextIdx] 
+                    : profile.name;
                 
                 // Start with placeholder image
                 newImg.src = 'aikai_profile_card.jpg';
@@ -898,9 +906,14 @@ function navigateModalImage(direction) {
     preloader.onload = () => {
         if (modalImage) {
             modalImage.src = nextSrc;
-            const imageNumber = window.currentProfileData.currentIndex + 1;
-            const totalCount = totalImages;
-            modalImage.alt = `${profile.name} - Photo ${imageNumber} of ${totalCount}`;
+            // Use the actual alt text from the altTexts array if available
+            if (window.currentProfileData.isProfile && profile.altTexts && profile.altTexts[window.currentProfileData.currentIndex]) {
+                modalImage.alt = profile.altTexts[window.currentProfileData.currentIndex];
+            } else {
+                const imageNumber = window.currentProfileData.currentIndex + 1;
+                const totalCount = totalImages;
+                modalImage.alt = `${profile.name} - Photo ${imageNumber} of ${totalCount}`;
+            }
         }
     };
     preloader.onerror = () => {
